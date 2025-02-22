@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Boletín Luna N°1 - 2025 Undertango Fondo de Inversión</title>
+
+    <!-- Estilos Básicos -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+      .container {
+        width: 95%;
+        max-width: 1080px;
+        margin: auto;
+        overflow: hidden;
+        padding: 5px;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 15px 0;
+        border-bottom: #77aaff 3px solid;
+        text-align: center;
+        position: relative;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 1.7em;
+        text-transform: uppercase;
+      }
+      .logo-luna {
+        width: 60px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+      .main {
+        background: #fff;
+        margin: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        padding: 20px;
+      }
+      .info-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+        background: #e2e2e2;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .info-box > div {
+        flex: 1 1 300px;
+        text-align: center;
+        margin: 5px;
+      }
+      .info-box h2 {
+        margin: 5px 0;
+        font-size: 1.2em;
+      }
+      .large-text {
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+      .variation {
+        font-weight: bold;
+      }
+      .green-text {
+        color: #28a745;
+      }
+      .red-text {
+        color: #dc3545;
+      }
+      .chart-container {
+        position: relative;
+        height: 400px;
+        margin: 20px 0;
+      }
+      .grid-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+        background: #e2e2e2;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .grid-box > div {
+        flex: 1 1 300px;
+        margin: 5px;
+      }
+      .bold-text {
+        font-weight: bold;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 5px;
+      }
+      table th, table td {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+      }
+      .distribution-section {
+        background: #fff;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      .distribution-section h2 {
+        margin-top: 0;
+      }
+      .distribution-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 10px;
+      }
+      .distribution-client {
+        flex: 1 1 250px;
+        background: #eaeaea;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .distribution-client h3 {
+        margin-top: 0;
+        font-size: 1.1em;
+        text-align: center;
+      }
+      .distribution-client ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .distribution-client ul li {
+        margin: 4px 0;
+      }
+      .movimientos-section {
+        background: #fff;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        padding: 15px;
+      }
+      .movimientos-section h2 {
+        margin-top: 0;
+      }
+      .registro-form {
+        margin-top: 20px;
+        padding: 15px;
+        background: #fdfdfd;
+        border-radius: 5px;
+      }
+      .registro-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .registro-form input,
+      .registro-form select,
+      .registro-form button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+      .registro-form button {
+        background: #333;
+        color: #fff;
+        cursor: pointer;
+      }
+      .registro-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      .registro-table th,
+      .registro-table td {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+      }
+      .registro-table th {
+        background: #f4f4f4;
+      }
+      @media(max-width: 600px) {
+        .info-box,
+        .grid-box,
+        .distribution-box {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+
+    <!-- Librería de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <img
+        class="logo-luna"
+        src="https://cdn-icons-png.flaticon.com/512/3267/3267734.png"
+        alt="Logo Luna"
+      />
+      <h1>Boletín Luna N°1 - 2025 Undertango Fondo de Inversión</h1>
+    </header>
+
+    <div class="container">
+      <div class="main">
+        <!-- Sección de datos generales de la caja y variaciones -->
+        <div class="info-box" id="infoBoxGeneral">
+          <div>
+            <h2>Caja Undertango (AR$)</h2>
+            <p class="large-text" id="valorCajaUndertango">Cargando...</p>
+          </div>
+          <div>
+            <h2>Fondo de Inversión (AR$)</h2>
+            <p class="large-text" id="valorFondoInversion">Cargando...</p>
+            <p>(Monto total a retribuir)</p>
+          </div>
+        </div>
+
+        <!-- Sección Valor de la acción y retribución -->
+        <div class="info-box">
+          <div>
+            <h2>Valor de la Acción</h2>
+            <p class="large-text" id="valorAccion">Cargando...</p>
+          </div>
+          <div>
+            <h2>Retribución por Acción</h2>
+            <p class="large-text" id="retribucionPorAccion">Cargando...</p>
+          </div>
+        </div>
+
+        <!-- Gráfico de evolución -->
+        <div class="chart-container">
+          <canvas id="chartEvolucion"></canvas>
+        </div>
+
+        <!-- Sección de tenedores, acciones, etc. -->
+        <div class="grid-box">
+          <div>
+            <h3>Accionistas</h3>
+            <table id="tablaAccionistas">
+              <thead>
+                <tr>
+                  <th>Inversor</th>
+                  <th>Acciones</th>
+                  <th>Capital (AR$)</th>
+                  <th>Porcentaje</th>
+                  <th>Retribución</th>
+                </tr>
+              </thead>
+              <tbody id="listaAccionistas"></tbody>
+            </table>
+            <p class="bold-text" style="text-align:right;margin-top:5px;">
+              Total Acciones: <span id="accionesTotales">...</span>
+            </p>
+          </div>
+          <div>
+            <h3>Variación Lunar (28 días)</h3>
+            <p class="variation" id="variacionCajaUndertango"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección adicional para porcentajes por cliente -->
+      <div class="distribution-section">
+        <h2>Distribución por Cliente</h2>
+        <p>
+          Estos son los porcentajes actuales definidos en el FD.I para cada
+          cliente:
+        </p>
+        <div class="distribution-box">
+          <div class="distribution-client">
+            <h3>Cruceros</h3>
+            <ul>
+              <li>10% Caja Undertango</li>
+              <li>5% GO</li>
+              <li>4% FDI</li>
+              <li>32% Personal</li>
+              <li>14% Bianca</li>
+              <li>14% Pablo</li>
+              <li>5% Producción</li>
+              <li>5% Moda U</li>
+              <li>3% Marketing</li>
+              <li>4% Impuestos</li>
+              <li>4% Primaries</li>
+            </ul>
+          </div>
+          <div class="distribution-client">
+            <h3>Casa Malbec</h3>
+            <ul>
+              <li>36% Personal</li>
+              <li>13% Bianca</li>
+              <li>13% Pablo</li>
+              <li>10% Caja Undertango</li>
+              <li>4% GO</li>
+              <li>3% FDI</li>
+              <li>5% Producción</li>
+              <li>5% Moda U</li>
+              <li>3% Marketing</li>
+              <li>4% Impuestos</li>
+              <li>3% Primaries</li>
+            </ul>
+          </div>
+          <div class="distribution-client">
+            <h3>Meliá</h3>
+            <ul>
+              <li>18% Bianca</li>
+              <li>5% FDI</li>
+              <li>18% Caja Undertango</li>
+              <li>18% Pablo</li>
+              <li>6% GO</li>
+              <li>10% Producción</li>
+              <li>6% Moda U</li>
+              <li>3% Marketing</li>
+              <li>4% Impuestos</li>
+              <li>12% Primarios</li>
+            </ul>
+          </div>
+          <div class="distribution-client">
+            <h3>DAM</h3>
+            <ul>
+              <li>100% Producción</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Movimientos del Fondo (tabla fdi2) -->
+      <div class="movimientos-section">
+        <h2>Registro de Movimientos (Fondo de Inversión)</h2>
+        <table class="registro-table" id="tablaMovimientosFDI2">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Inversor</th>
+              <th>Descripción</th>
+              <th>Acción</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody id="listaMovimientosFDI2"></tbody>
+        </table>
+
+        <!-- Formulario para agregar un nuevo movimiento en fdi2 -->
+        <div class="registro-form">
+          <h3>Agregar Movimiento en FDI2</h3>
+          <label for="fechaFDI2">Fecha</label>
+          <input type="date" id="fechaFDI2" />
+
+          <label for="inversorFDI2">Inversor</label>
+          <select id="inversorFDI2">
+            <option value="">--Seleccione--</option>
+            <option value="Bianca Wagner">Bianca Wagner</option>
+            <option value="Luciano Valdemarín">Luciano Valdemarín</option>
+            <option value="Pablo Cieslik">Pablo Cieslik</option>
+          </select>
+
+          <label for="descripcionFDI2">Descripción</label>
+          <input
+            type="text"
+            id="descripcionFDI2"
+            placeholder="Ej: Retiro de retribución"
+          />
+
+          <label for="accionFDI2">Acción</label>
+          <select id="accionFDI2">
+            <option value="">--Seleccione--</option>
+            <option value="compra acciones">Compra Acciones</option>
+            <option value="vende acciones">Vende Acciones</option>
+            <option value="recibe retribución">Recibe Retribución</option>
+          </select>
+
+          <label for="cantidadFDI2">Monto o Cantidad</label>
+          <input type="number" id="cantidadFDI2" step="0.01" />
+
+          <button id="btnAgregarFDI2">Agregar Movimiento</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript principal -->
+    <script>
+      // ============================================================
+      // Configuración de Airtable
+      // ============================================================
+      const AIRTABLE_API_KEY = "patuKKtlyfqvVNCpc.25468d0bda6badcfd90c84a03a681fc462c0b66b57b964eddb0449b24134a45e";
+      const BASE_ID = "appPGVN4sDJ0aTrSb";
+
+      // Tablas en la base
+      const TABLE_MOVIMIENTOS = "fdi1";    // Movimientos parciales
+      const TABLE_INVERSORES = "fdi";     // Inversores
+      const TABLE_FONDO = "fdi2";         // Registro de movimientos del Fondo
+      const TABLE_TOTALES = "Totales";    // Suma final para Caja Undertango
+
+      // ============================================================
+      // Variables globales
+      // ============================================================
+      let cajaUndertango = 0;
+      let fondoInversion = 0;
+      let accionistas = [];
+      let totalAcciones = 0;
+
+      // Este arreglo contendrá la evolución acumulada:
+      //  [{ fecha: Date, valor: number }, ... ]
+      let historicoCaja = [];
+
+      // ============================================================
+      // [A] Obtener datos desde la tabla fdi1 (acumulando movimientos),
+      //     manejando la paginación de Airtable
+      // ============================================================
+      async function fetchMovimientos() {
+        try {
+          let allRecords = [];
+          let offset = null;
+
+          // 1) Bucle para traer todas las páginas (más de 100 registros)
+          do {
+            let url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_MOVIMIENTOS}?pageSize=100`;
+            if (offset) {
+              url += `&offset=${offset}`;
+            }
+
+            const response = await fetch(url, {
+              headers: {
+                Authorization: `Bearer ${AIRTABLE_API_KEY}`
+              }
+            });
+            if (!response.ok) {
+              throw new Error("Error al obtener datos de Airtable - fdi1");
+            }
+
+            const data = await response.json();
+            allRecords = allRecords.concat(data.records);
+            offset = data.offset;
+          } while (offset);
+
+          // 2) Procesamos todos los registros
+          fondoInversion = 0;
+          historicoCaja = [];
+          let movimientos = [];
+
+          allRecords.forEach(record => {
+            const f = record.fields;
+
+            // Sumar Fondo de Inversión (si existe)
+            if (f["Fondo de Inversion"] !== undefined) {
+              fondoInversion += parseFloat(f["Fondo de Inversion"] || 0);
+            }
+
+            // Capturamos movimientos parciales (Fecha y Caja Undertango)
+            if (f["Fecha"] && f["Caja Undertango"] !== undefined) {
+              movimientos.push({
+                fecha: new Date(f["Fecha"]),
+                movimiento: parseFloat(f["Caja Undertango"] || 0)
+              });
+            }
+          });
+
+          // 3) Ordenar por fecha
+          movimientos.sort((a, b) => a.fecha - b.fecha);
+
+          // 4) Calcular la suma acumulada
+          let acumulado = 0;
+          movimientos.forEach(m => {
+            acumulado += m.movimiento;
+            historicoCaja.push({
+              fecha: m.fecha,
+              valor: acumulado
+            });
+          });
+        } catch (error) {
+          console.error("fetchMovimientos:", error);
+        }
+      }
+
+      // ============================================================
+      // [B] Obtener el total de Caja Undertango desde la tabla "Totales"
+      // ============================================================
+      async function fetchTotales() {
+        try {
+          const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_TOTALES}`;
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${AIRTABLE_API_KEY}`
+            }
+          });
+          if (!response.ok) {
+            throw new Error("Error al obtener datos de Totales");
+          }
+          const data = await response.json();
+          if (data.records && data.records.length > 0) {
+            // Suponiendo que el campo se llama "Total Caja Undertango"
+            cajaUndertango = parseFloat(data.records[0].fields["Total Caja Undertango"]) || 0;
+          }
+        } catch (error) {
+          console.error("fetchTotales:", error);
+        }
+      }
+
+      // ============================================================
+      // [C] Obtener datos de inversores desde la tabla fdi
+      // ============================================================
+      async function fetchInversores() {
+        try {
+          const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_INVERSORES}`;
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${AIRTABLE_API_KEY}`
+            }
+          });
+          if (!response.ok) {
+            throw new Error("Error al obtener datos de inversores - fdi");
+          }
+          const data = await response.json();
+          accionistas = data.records
+            .filter(r => r.fields["Inversor"] && r.fields["cantidad de acciones"])
+            .map(r => ({
+              id: r.id,
+              nombre: r.fields["Inversor"],
+              acciones: parseFloat(r.fields["cantidad de acciones"]) || 0
+            }));
+        } catch (error) {
+          console.error("fetchInversores:", error);
+        }
+      }
+
+      // ============================================================
+      // [D] Calcular totales de acciones
+      // ============================================================
+      function calcularTotales() {
+        totalAcciones = accionistas.reduce((acc, inv) => acc + inv.acciones, 0);
+      }
+
+      // ============================================================
+      // Función para calcular la variación lunar (28 días atrás)
+      // ============================================================
+      function computeVariacionLunar() {
+        // Aseguramos que historicoCaja esté ordenado
+        historicoCaja.sort((a, b) => a.fecha - b.fecha);
+        if (historicoCaja.length === 0) return { variacion: 0 };
+
+        const finalRecord = historicoCaja[historicoCaja.length - 1];
+        const fechaFinal = finalRecord.fecha;
+        const valorFinal = finalRecord.valor;
+        // Fecha 28 días atrás
+        const fecha28 = new Date(fechaFinal.getTime() - (28 * 24 * 60 * 60 * 1000));
+
+        // Buscamos el último registro con fecha menor o igual a fecha28
+        let record28 = null;
+        for (let i = historicoCaja.length - 1; i >= 0; i--) {
+          if (historicoCaja[i].fecha <= fecha28) {
+            record28 = historicoCaja[i];
+            break;
+          }
+        }
+        // Si no se encontró, usamos el primer registro
+        if (!record28) {
+          record28 = historicoCaja[0];
+        }
+        const valor28 = record28.valor;
+        let variacion = 0;
+        if (valor28 !== 0) {
+          variacion = ((valorFinal - valor28) / valor28) * 100;
+        }
+        return { variacion };
+      }
+
+      // ============================================================
+      // [E] Renderizar datos en el DOM
+      // ============================================================
+      function renderDatos() {
+        // Mostrar Caja y Fondo (la caja se toma de Totales)
+        document.getElementById("valorCajaUndertango").textContent = formatMoney(cajaUndertango);
+        document.getElementById("valorFondoInversion").textContent = formatMoney(fondoInversion);
+
+        // Calcular Valor de la Acción
+        let valorAccion = 0;
+        if (totalAcciones > 0) {
+          valorAccion = cajaUndertango / totalAcciones;
+        }
+        document.getElementById("valorAccion").textContent = formatMoney(valorAccion);
+
+        // Retribución por Acción
+        let retribPorAccion = 0;
+        if (totalAcciones > 0) {
+          retribPorAccion = fondoInversion / totalAcciones;
+        }
+        document.getElementById("retribucionPorAccion").textContent = formatMoney(retribPorAccion);
+
+        // Listado de accionistas
+        const tbody = document.getElementById("listaAccionistas");
+        tbody.innerHTML = "";
+        accionistas.forEach(a => {
+          const capitalAcumulado = a.acciones * valorAccion;
+          const porcentajeAcciones = (a.acciones / totalAcciones) * 100;
+          const retribDelAccionista = a.acciones * retribPorAccion;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${a.nombre}</td>
+            <td>${a.acciones.toFixed(2)}</td>
+            <td>${formatMoney(capitalAcumulado)}</td>
+            <td>${porcentajeAcciones.toFixed(2)}%</td>
+            <td>${formatMoney(retribDelAccionista)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+        document.getElementById("accionesTotales").textContent = totalAcciones.toFixed(2);
+
+        // Calcular variación lunar (28 días)
+        const varData = computeVariacionLunar();
+        showVariation(varData.variacion, "variacionCajaUndertango");
+      }
+
+      // ============================================================
+      // [F] Dibujar gráfico de evolución (acumulada) con Chart.js
+      // ============================================================
+      function dibujarGrafico() {
+        const ctx = document.getElementById("chartEvolucion").getContext("2d");
+        historicoCaja.sort((a, b) => a.fecha - b.fecha);
+        const labels = historicoCaja.map(item =>
+          item.fecha.toLocaleDateString("es-AR")
+        );
+        const dataValues = historicoCaja.map(item => item.valor);
+
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Evolución Caja Undertango (acumulada)",
+                data: dataValues,
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 2,
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: false,
+                ticks: {
+                  callback: function(value) {
+                    return formatMoney(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // ============================================================
+      // [G] Obtener movimientos de fdi2 (Fondo de Inversión)
+      // ============================================================
+      async function fetchMovimientosFDI2() {
+        try {
+          const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_FONDO}?sort[0][field]=fecha&sort[0][direction]=desc`;
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${AIRTABLE_API_KEY}`
+            }
+          });
+          if (!response.ok) {
+            throw new Error("Error al obtener datos de Airtable - fdi2");
+          }
+          const data = await response.json();
+          renderMovimientosFDI2(data.records);
+        } catch (error) {
+          console.error("fetchMovimientosFDI2:", error);
+        }
+      }
+
+      // ============================================================
+      // [H] Renderizar movimientos en fdi2 en la tabla
+      // ============================================================
+      function renderMovimientosFDI2(records) {
+        const tbody = document.getElementById("listaMovimientosFDI2");
+        tbody.innerHTML = "";
+        records.forEach(rec => {
+          const f = rec.fields;
+          const fechaVal = f["fecha"] ? new Date(f["fecha"]).toLocaleDateString() : "";
+          const inversor = f["Inversor"] || "";
+          const descripcion = f["descripcion"] || "";
+          const accion = f["Acción"] || "";
+          const cantidad = f["cantidad"] || 0;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${fechaVal}</td>
+            <td>${inversor}</td>
+            <td>${descripcion}</td>
+            <td>${accion}</td>
+            <td>${cantidad}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // ============================================================
+      // [I] Manejador para agregar un movimiento en fdi2
+      // ============================================================
+      document.getElementById("btnAgregarFDI2").addEventListener("click", async () => {
+        const fecha = document.getElementById("fechaFDI2").value;
+        const inversor = document.getElementById("inversorFDI2").value;
+        const descripcion = document.getElementById("descripcionFDI2").value.trim();
+        const accion = document.getElementById("accionFDI2").value;
+        const montoOCantidad = parseFloat(document.getElementById("cantidadFDI2").value) || 0;
+
+        if (!fecha || !accion) {
+          alert("Por favor, completa al menos la fecha y la acción.");
+          return;
+        }
+
+        try {
+          await createRecordFDI2({
+            fecha: fecha,
+            Inversor: inversor,
+            descripcion: descripcion,
+            "Acción": accion,
+            cantidad: montoOCantidad
+          });
+
+          if (accion === "recibe retribución") {
+            await createRecordFDI1({
+              Fecha: fecha,
+              Origen: "FDI",
+              Destino: "Retribución",
+              Detalle: descripcion || "Retribución",
+              Monto: -montoOCantidad,
+              "Fondo de Inversion": -montoOCantidad
+            });
+          }
+
+          if (accion === "compra acciones") {
+            await createRecordFDI1({
+              Fecha: fecha,
+              Origen: "FDI",
+              Destino: "Compra Acciones",
+              Detalle: descripcion,
+              Monto: -montoOCantidad,
+              "Fondo de Inversion": -montoOCantidad
+            });
+            const valorAccion = (totalAcciones > 0) ? (cajaUndertango / totalAcciones) : 1;
+            const accionesCompradas = montoOCantidad / valorAccion;
+            const inversorObj = accionistas.find(a => a.nombre === inversor);
+            if (inversorObj) {
+              const nuevasAcciones = inversorObj.acciones + accionesCompradas;
+              await updateAccionesInversor(inversorObj.id, nuevasAcciones);
+            }
+          }
+
+          // Recargamos todo
+          await fetchMovimientosFDI2();
+          await fetchMovimientos();
+          await fetchTotales();
+          await fetchInversores();
+          calcularTotales();
+          renderDatos();
+          dibujarGrafico();
+
+          // Limpiamos formulario
+          document.getElementById("fechaFDI2").value = "";
+          document.getElementById("inversorFDI2").value = "";
+          document.getElementById("descripcionFDI2").value = "";
+          document.getElementById("accionFDI2").value = "";
+          document.getElementById("cantidadFDI2").value = "";
+
+          alert("Movimiento agregado correctamente.");
+        } catch (error) {
+          console.error("Error al agregar movimiento fdi2:", error);
+          alert("Ocurrió un error al agregar el movimiento en fdi2.");
+        }
+      });
+
+      // ============================================================
+      // [J] Crear registro en fdi2
+      // ============================================================
+      async function createRecordFDI2(fields) {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_FONDO}`;
+        const formattedFields = {
+          fecha: fields.fecha,
+          Inversor: fields.Inversor,
+          "Acción": fields["Acción"],
+          cantidad: fields.cantidad,
+          Detalle: fields.descripcion
+        };
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            records: [{ fields: formattedFields }]
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Request payload:", { fields: formattedFields });
+          console.error("Airtable error response:", errorData);
+          throw new Error(
+            `No se pudo crear el registro en fdi2: ${errorData.error?.message || 'Error desconocido'}`
+          );
+        }
+
+        return await response.json();
+      }
+
+      // ============================================================
+      // [K] Crear registro en fdi1
+      // ============================================================
+      async function createRecordFDI1(fields) {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_MOVIMIENTOS}`;
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            records: [{ fields }]
+          })
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error createRecordFDI1:", errorData);
+          throw new Error("No se pudo crear el registro en fdi1");
+        }
+      }
+
+      // ============================================================
+      // [L] Actualizar la cantidad de acciones de un inversor en fdi
+      // ============================================================
+      async function updateAccionesInversor(recordId, nuevasAcciones) {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_INVERSORES}`;
+        const response = await fetch(url, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            records: [
+              {
+                id: recordId,
+                fields: {
+                  "cantidad de acciones": nuevasAcciones
+                }
+              }
+            ]
+          })
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error updateAccionesInversor:", errorData);
+          throw new Error("No se pudo actualizar la cantidad de acciones en fdi");
+        }
+      }
+
+      // ============================================================
+      // [M] Funciones auxiliares
+      // ============================================================
+      function formatMoney(num) {
+        return new Intl.NumberFormat("es-AR", {
+          style: "currency",
+          currency: "ARS",
+          maximumFractionDigits: 2
+        }).format(num || 0);
+      }
+
+      function showVariation(variacion, elementoId) {
+        const spanVar = document.getElementById(elementoId);
+        const vPorc = variacion.toFixed(2) + "%";
+        // Utilizamos cajaUndertango (de Totales) para mostrar el total
+        const totalCajaStr = formatMoney(cajaUndertango);
+
+        if (variacion >= 0) {
+          spanVar.textContent = `Variación lunar (28 días): +${vPorc} — Total de Caja Undertango a la fecha: ${totalCajaStr}`;
+          spanVar.classList.remove("red-text");
+          spanVar.classList.add("green-text");
+        } else {
+          spanVar.textContent = `Variación lunar (28 días): ${vPorc} — Total de Caja Undertango a la fecha: ${totalCajaStr}`;
+          spanVar.classList.remove("green-text");
+          spanVar.classList.add("red-text");
+        }
+      }
+
+      // ============================================================
+      // [N] Inicialización al cargar la página
+      // ============================================================
+      document.addEventListener("DOMContentLoaded", async () => {
+        // 1) Movimientos (fdi1) -> suma acumulada (con paginación)
+        await fetchMovimientos();
+        // 2) Totales (Tabla Totales) -> cajaUndertango
+        await fetchTotales();
+        // 3) Inversores (fdi)
+        await fetchInversores();
+        // 4) Calcular totales y renderizar datos y gráfico
+        calcularTotales();
+        renderDatos();
+        dibujarGrafico();
+        // 5) Movimientos fdi2
+        await fetchMovimientosFDI2();
+      });
+    </script>
+  </body>
+</html>
