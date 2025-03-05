@@ -6,13 +6,13 @@
 }
 
 :root {
-  --primary: #350410; 
-  --secondary: #666666; 
-  --background: #ffffff;
+  --primary: #350410;
+  --secondary: #d4af37;
+  --background: #f8f4e6;
   --text: #333333;
-  --accent: #CCCCCC;
-  --highlight: #999999; 
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  --accent: #ffffff;
+  --highlight: #999999;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
 
@@ -73,7 +73,7 @@ body {
   display: inline-flex;
   align-items: center;
   background-color: var(--primary);
-  color: var(--background);
+  color: var(--accent);
   padding: 1rem 2rem;
   border-radius: 50px;
   text-decoration: none;
@@ -92,8 +92,8 @@ body {
 }
 
 .class-info {
-  background-color: var(--background);
-  padding: 2rem 1rem;
+  background-color: var(--accent);
+  padding: 4rem 1rem;
   text-align: center;
 }
 
@@ -108,7 +108,7 @@ body {
 .class-info-text {
   font-size: 1.25rem;
   max-width: 800px;
-  margin: 0 auto 1rem auto;
+  margin: 0 auto 2rem auto;
   color: var(--text);
   animation: fadeIn 1.5s ease-in-out;
 }
@@ -118,12 +118,12 @@ body {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: 0px;
+  margin-top: 2rem;
 }
 
 .highlight-card {
   flex: 1 1 30%;
-  background-color: var(--accent);
+  background-color: var(--background);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -133,7 +133,7 @@ body {
 
 .highlight-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow);
 }
 
 .highlight-card i {
@@ -145,6 +145,7 @@ body {
 .highlight-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: var(--primary);
 }
 
 .highlight-card p {
@@ -153,8 +154,8 @@ body {
 }
 
 .benefits {
-  background-color: var(--background);
-  padding: 2rem 1rem;
+  background-color: var(--accent);
+  padding: 4rem 1rem;
   text-align: center;
 }
 
@@ -169,7 +170,7 @@ body {
 .benefits-text {
   font-size: 1.25rem;
   max-width: 800px;
-  margin: 0 auto 1rem auto;
+  margin: 0 auto 2rem auto;
   color: var(--text);
   animation: fadeIn 1.5s ease-in-out;
 }
@@ -178,11 +179,11 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .benefit-card {
-  background-color: var(--accent);
+  background-color: var(--background);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -192,7 +193,7 @@ body {
 
 .benefit-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow);
 }
 
 .benefit-card i {
@@ -204,6 +205,7 @@ body {
 .benefit-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: var(--primary);
 }
 
 .benefit-card p {
@@ -211,16 +213,76 @@ body {
   color: var(--text);
 }
 
-.contact {
+.other-disciplines {
   background-color: var(--background);
-  padding: 2rem 1rem;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.disciplines-title {
+  font-family: 'Bellerose', cursive;
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.disciplines-intro {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  color: var(--text);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.disciplines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 2rem;
+}
+
+.discipline-card {
+  background-color: var(--accent);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: var(--transition);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.discipline-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+}
+
+.discipline-card i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.discipline-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.discipline-card p {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.contact {
+  background-color: var(--primary);
+  padding: 4rem 1rem;
   text-align: center;
 }
 
 .contact-title {
   font-family: 'Bellerose', cursive;
   font-size: 3rem;
-  color: var(--primary);
+  color: var(--accent);
   margin-bottom: 1rem;
   animation: fadeIn 1s ease-in-out;
 }
@@ -228,8 +290,8 @@ body {
 .contact-button {
   display: inline-flex;
   align-items: center;
-  background-color: var(--primary);
-  color: var(--background);
+  background-color: var(--secondary);
+  color: var(--primary);
   padding: 1rem 2rem;
   border-radius: 50px;
   text-decoration: none;
@@ -239,7 +301,7 @@ body {
 }
 
 .contact-button:hover {
-  background-color: var(--secondary);
+  background-color: var(--accent);
   transform: translateY(-5px);
 }
 
@@ -267,7 +329,9 @@ body {
     font-size: 1.25rem;
   }
 
-  .highlight-card {
+  .highlight-card,
+  .benefit-card,
+  .discipline-card {
     flex: 1 1 100%;
   }
 }
