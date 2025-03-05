@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - UnderTango</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 300px;
+      }
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #357ae8;
+      }
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>¿Eres nuevo? ¡Regístrate!</h2>
+      <form id="registrationForm">
+        <input
+          type="email"
+          id="email"
+          placeholder="Correo electrónico"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          required
+        />
+        <button type="submit">Registrarse</button>
+      </form>
+      <p class="error" id="errorMessage"></p>
+    </div>
+
+    <script type="module">
+      // Importar Firebase y Auth
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        runTransaction,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC05s84tQfQbiJua0G0LHnQsZP76HqxMk4",
+        authDomain: "undertango.firebaseapp.com",
+        projectId: "undertango",
+        storageBucket: "undertango.appspot.com",
+        messagingSenderId: "21199358960",
+        appId: "1:21199358960:web:6b751db7c333403057ab35",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Manejar el registro de usuario
+      const registrationForm = document.getElementById("registrationForm");
+      const errorMessage = document.getElementById("errorMessage");
+
+      registrationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userCredential.user;
+
+          // Guardar el perfil del usuario en Firestore
+          const userDocRef = doc(db, "usuarios", user.uid);
+          await setDoc(userDocRef, {
+            email: user.email,
+            undertangoCoins: 1,
+          });
+
+          alert("Registro exitoso. Redirigiendo a juego...");
+          window.location.href = "formulario.html";
+        } catch (error) {
+          console.error("Error en el registro:", error);
+          errorMessage.textContent = "Error en el registro: " + error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

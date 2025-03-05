@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bienvenido a UnderTango</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      img {
+        margin-top: 20px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label,
+      input {
+        margin-bottom: 10px;
+      }
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #357ae8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Bienvenido a UnderTango</h2>
+      <p id="welcomeMessage">Cargando...</p>
+
+      <!-- Formulario para agregar más información -->
+      <form id="userInfoForm">
+        <label for="gameName">Nombre en el juego:</label>
+        <input type="text" id="gameName" name="gameName" required /><br />
+
+        <label for="institution">Institución a la que representa:</label>
+        <input type="text" id="institution" name="institution" required /><br />
+
+        <label for="profilePhoto">Foto de perfil:</label>
+        <input
+          type="file"
+          id="profilePhoto"
+          name="profilePhoto"
+          accept="image/*"
+        /><br /><br />
+
+        <button type="submit">Guardar Información</button>
+      </form>
+
+      <!-- Imagen de perfil actual (opcional) -->
+      <div id="currentPhotoContainer"></div>
+    </div>
+
+    <script type="module">
+      // Importar Firebase y Auth
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        getStorage,
+        ref,
+        uploadBytes,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+      // Configuración de Firebase (reemplaza con tu propia configuración)
+      const firebaseConfig = {
+        apiKey: "AIzaSyC05s84tQfQbiJua0G0LHnQsZP76HqxMk4",
+        authDomain: "undertango.firebaseapp.com",
+        projectId: "undertango",
+        storageBucket: "undertango.appspot.com",
+        messagingSenderId: "21199358960",
+        appId: "1:21199358960:web:6b751db7c333403057ab35",
+      };
+
+      // Inicializar Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      const welcomeMessage = document.getElementById("welcomeMessage");
+      const userInfoForm = document.getElementById("userInfoForm");
+      const currentPhotoContainer = document.getElementById(
+        "currentPhotoContainer"
+      );
+      const gameNameInput = document.getElementById("gameName");
+      const institutionInput = document.getElementById("institution");
+
+      // Variable para almacenar la URL de la foto de perfil actual
+      let currentPhotoURL = "";
+
+      // Verificar el estado de autenticación del usuario
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          // Si displayName es null o vacío, usar el email como respaldo
+          const displayName = user.displayName || user.email || "usuario";
+          welcomeMessage.textContent = `¡Bienvenido, ${displayName}!`;
+
+          try {
+            const userId = user.uid;
+
+            // Referencias a documentos
+            const userDocRef = doc(db, "usuarios", userId);
+            const publicDataRef = doc(
+              db,
+              `usuarios/${userId}/publicData/perfilPublico`
+            );
+
+            // Obtener datos privados del usuario
+            const userDoc = await getDoc(userDocRef);
+            // Obtener datos públicos del usuario
+            const publicDataDoc = await getDoc(publicDataRef);
+
+            // Rellenar el formulario con los datos actuales
+            if (publicDataDoc.exists()) {
+              const publicData = publicDataDoc.data();
+              gameNameInput.value = publicData.gameName || "";
+              currentPhotoURL = publicData.photoURL || "";
+
+              // Mostrar la foto de perfil actual (opcional)
+              if (currentPhotoURL) {
+                const img = document.createElement("img");
+                img.src = currentPhotoURL;
+                img.alt = "Foto de perfil actual";
+                currentPhotoContainer.appendChild(img);
+              }
+            }
+
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              institutionInput.value = userData.institution || "";
+            }
+
+            // Verificar si ambos campos tienen datos
+            if (gameNameInput.value && institutionInput.value) {
+              // Mostrar popup
+              alert("¡Ya estás inscripto, genial!");
+              // Redirigir a juego.html
+              window.location.href = "juego.html";
+            }
+          } catch (error) {
+            console.error("Error al obtener datos del usuario:", error);
+            alert(
+              "Hubo un error al cargar tus datos. Por favor, intenta de nuevo."
+            );
+          }
+
+          // Manejar el envío del formulario
+          userInfoForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            try {
+              const userId = user.uid;
+
+              // Obtener datos del formulario
+              const gameName = gameNameInput.value;
+              const institution = institutionInput.value;
+              const profilePhotoInput = document.getElementById("profilePhoto");
+              const profilePhoto = profilePhotoInput.files[0];
+
+              let photoURL = currentPhotoURL;
+
+              if (profilePhoto) {
+                // Subir la nueva foto a Firebase Storage
+                const storageRef = ref(storage, `profilePhotos/${userId}`);
+                await uploadBytes(storageRef, profilePhoto);
+
+                // Obtener la URL de la foto subida
+                photoURL = await getDownloadURL(storageRef);
+              }
+
+              // Obtener el documento existente del usuario para preservar undertangoCoins
+              const userDocRef = doc(db, "usuarios", userId);
+              const userDoc = await getDoc(userDocRef);
+              let undertangoCoins = 10; // Valor por defecto si no existe
+
+              if (userDoc.exists()) {
+                const userData = userDoc.data();
+                undertangoCoins = userData.undertangoCoins || undertangoCoins;
+              }
+
+              // Actualizar datos privados del usuario
+              await setDoc(
+                userDocRef,
+                {
+                  institution: institution,
+                  email: user.email,
+                  undertangoCoins: undertangoCoins, // Mantener las monedas existentes
+                },
+                { merge: true }
+              );
+
+              // Actualizar datos públicos del usuario
+              const publicDataRef = doc(
+                db,
+                `usuarios/${userId}/publicData/perfilPublico`
+              );
+              await setDoc(
+                publicDataRef,
+                {
+                  gameName: gameName,
+                  photoURL: photoURL,
+                  undertangoCoins: undertangoCoins, // Asegurarse de mantener actualizado
+                },
+                { merge: true }
+              );
+
+              console.log(
+                "Perfil de usuario actualizado con éxito. undertangoCoins:",
+                undertangoCoins
+              );
+
+              // Guardar los datos en localStorage para pasarlos a la siguiente página
+              localStorage.setItem("gameName", gameName);
+              localStorage.setItem("institution", institution);
+              localStorage.setItem("photoURL", photoURL);
+              localStorage.setItem(
+                "undertangoCoins",
+                undertangoCoins.toString()
+              );
+
+              // Redirigir a juego.html
+              window.location.href = "juego.html";
+            } catch (error) {
+              console.error("Error al actualizar el perfil:", error);
+              alert(
+                "Hubo un error al actualizar tu perfil. Por favor, intenta de nuevo."
+              );
+            }
+          });
+        } else {
+          // Si no hay usuario autenticado, redirigir al registro
+          console.error("No se pudo obtener información del usuario.");
+          alert("Error: No se pudo obtener información del usuario.");
+          window.location.replace("registro.html");
+        }
+      });
+    </script>
+    <script type="module" src="../registro.js"></script>
+  </body>
+</html>
