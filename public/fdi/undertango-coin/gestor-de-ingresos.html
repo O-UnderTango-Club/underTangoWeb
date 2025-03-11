@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestor UT de Ingresos y Cajas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    input, select, button, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .caja {
+      padding: 10px;
+      background-color: #e9ecef;
+      margin-bottom: 8px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gestor de Ingresos y Distribución</h1>
+
+  <!-- Contenedor donde se mostrarán las cajas y sus totales -->
+  <div id="cajas" class="container"></div>
+
+  <h2>Registrar Ingreso</h2>
+  <div class="container">
+    <input type="number" id="monto" placeholder="Monto" required />
+    <input type="date" id="fecha" required />
+    <select id="origen">
+      <option value="Shows en Cruceros">Shows en Cruceros</option>
+      <option value="Shows en el Hotel Meliá">Shows en el Hotel Meliá</option>
+      <option value="Shows en el DAM">Shows en el DAM</option>
+      <option value="Clases">Clases</option>
+      <option value="Purga">Purga</option>
+    </select>
+    <select id="distribucion"></select>
+    <textarea id="notas" placeholder="Notas" rows="4"></textarea>
+    <button onclick="registrarIngreso()">Registrar y Distribuir</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    // ------------------------------------------------------------------------
+    // 1) Ajusta tus credenciales y nombres de tablas según tu base de Airtable
+    // ------------------------------------------------------------------------
+    const API_KEY = "patDkgh9AOk8DJ2gz.b5d34c70d323a35badc12a52130e8b64926e6924f532904fa74a92dbc60f0dbf";        // <--- Reemplaza
+    const BASE_ID = "appi5urGbKh6fh62Z";        // <--- Reemplaza
+    const URL = `https://api.airtable.com/v0/${BASE_ID}/`;
+
+    const tablas = {
+      ingresos: "Ingresos",
+      distribuciones: "Distribuciones de Ingresos",
+      cajas: "Cajas"
+    };
+
+    // ------------------------------------------------------------------------
+    // 2) Mapeo de campos "Porcentaje" en "Distribuciones de Ingresos" 
+    //    al nombre exacto de la Caja en "Cajas"
+    //    Ajusta estos nombres a tu realidad.
+    // ------------------------------------------------------------------------
+    const distributionMap = [
+      { field: "Caja Undertango Porcentaje",   cajaName: "Caja Undertango" },
+      { field: "Gastos Operativos Porcentaje", cajaName: "Gastos Operativos" },
+      { field: "Fondo de Inversión Porcentaje",cajaName: "Fondo de Inversión" },
+      { field: "Moda U Porcentaje",            cajaName: "Moda U" },
+      { field: "Caja Corporativa Porcentaje",  cajaName: "Caja Corporativa" },
+      { field: "Programación Porcentaje",      cajaName: "Programación" },
+      { field: "Marketing Porcentaje",         cajaName: "Marketing" },
+      { field: "Caja Academy Porcentaje",      cajaName: "Caja Academy" }, 
+      // ^ Si en tu tabla no existe "Caja Academy Porcentaje", quítalo o corrígelo.
+      { field: "Primarios Porcentaje",         cajaName: "Primarios" },
+      { field: "Producción Porcentaje",        cajaName: "Producción" },
+      { field: "Caché Pablo Porcentaje",       cajaName: "Caché Pablo" },
+      { field: "Caché Bia Porcentaje",         cajaName: "Caché Bia" },
+      { field: "Impuestos Porcentaje",         cajaName: "Impuestos" }
+    ];
+
+    // ------------------------------------------------------------------------
+    // 3) Cargar la lista de distribuciones en el <select> 
+    // ------------------------------------------------------------------------
+    async function cargarDistribuciones() {
+      try {
+        const resp = await fetch(`${URL}${encodeURIComponent(tablas.distribuciones)}`, {
+          headers: { Authorization: `Bearer ${API_KEY}` }
+        });
+        const data = await resp.json();
+
+        const distribucionSelect = document.getElementById("distribucion");
+        distribucionSelect.innerHTML = "";
+
+        data.records.forEach(record => {
+          const option = document.createElement("option");
+          option.value = record.id;                // ID de la distribución
+          option.textContent = record.fields.Name; // Nombre de la distribución
+          distribucionSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Error al cargar distribuciones:", error);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // 4) Mostrar en pantalla las cajas y sus montos 
+    // ------------------------------------------------------------------------
+    async function mostrarCajas() {
+      try {
+        const resp = await fetch(`${URL}${tablas.cajas}`, {
+          headers: { Authorization: `Bearer ${API_KEY}` }
+        });
+        const data = await resp.json();
+
+        const contenedor = document.getElementById("cajas");
+        contenedor.innerHTML = "";
+
+        data.records.forEach(caja => {
+          const div = document.createElement("div");
+          div.className = "caja";
+          const nombre = caja.fields.Name;
+          const total = caja.fields.Total || 0;
+          div.innerHTML = `<strong>${nombre}</strong>: $${total}`;
+          contenedor.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Error al mostrar cajas:", error);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // 5) Crear el ingreso principal y luego distribuir 
+    // ------------------------------------------------------------------------
+    async function registrarIngreso() {
+      const monto = parseFloat(document.getElementById("monto").value);
+      const fecha = document.getElementById("fecha").value;
+      const origen = document.getElementById("origen").value;
+      const notas = document.getElementById("notas").value;
+      const distribucionId = document.getElementById("distribucion").value;
+      const status = document.getElementById("status");
+
+      // Validar campos
+      if (!monto || !fecha || !origen || !distribucionId) {
+        status.textContent = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      // 1) Crear el ingreso principal
+      status.textContent = "Registrando ingreso principal...";
+      const principalResp = await fetch(`${URL}${tablas.ingresos}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fields: {
+            "Monto Total": monto,
+            "Fecha de Ingreso": fecha,
+            "Origen del Ingreso": origen,
+            "Notas": notas,
+            "Distribución de Ingresos": [distribucionId]
+          }
+        })
+      });
+
+      if (!principalResp.ok) {
+        const errorDetalle = await principalResp.json();
+        status.textContent = `Error al crear ingreso principal: ${errorDetalle.error.message}`;
+        return;
+      }
+
+      // 2) Obtener los datos de la distribución seleccionada
+      status.textContent = "Ingreso principal creado. Obteniendo datos de la distribución...";
+      const distResp = await fetch(`${URL}${tablas.distribuciones}/${distribucionId}`, {
+        headers: { Authorization: `Bearer ${API_KEY}` }
+      });
+      const distData = await distResp.json();
+
+      // 3) Para cada campo de porcentaje, calcular y crear un registro parcial
+      let registrosCreados = 0;
+
+      for (let i = 0; i < distributionMap.length; i++) {
+        const { field, cajaName } = distributionMap[i];
+
+        // Tomamos el valor de porcentaje (ej: "Caché Pablo Porcentaje")
+        let porcentaje = distData.fields[field] || 0;
+        porcentaje = parseFloat(porcentaje) || 0;
+        if (porcentaje === 0) {
+          // Si no hay porcentaje, saltamos
+          continue;
+        }
+
+        // Calculamos el monto parcial
+        const montoParcial = (monto * porcentaje) / 100;
+
+        // 3a) Buscar la caja por nombre exacto
+        status.textContent = `Buscando la caja "${cajaName}"...`;
+        const cajaResp = await fetch(
+          `${URL}${tablas.cajas}?filterByFormula=${encodeURIComponent(`({Name} = "${cajaName}")`)}`,
+          { headers: { Authorization: `Bearer ${API_KEY}` } }
+        );
+        const cajaData = await cajaResp.json();
+
+        if (!cajaData.records || cajaData.records.length === 0) {
+          console.warn(`No se encontró la caja con nombre: ${cajaName}`);
+          continue;
+        }
+        const cajaId = cajaData.records[0].id;
+
+        // 3b) Crear el registro parcial en "Ingresos"
+        status.textContent = `Creando ingreso parcial para "${cajaName}"...`;
+        const parcialResp = await fetch(`${URL}${tablas.ingresos}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fields: {
+              "Monto Total": montoParcial,
+              "Fecha de Ingreso": fecha,
+              "Origen del Ingreso": origen,
+              "Notas": `${notas} (Distribución: ${cajaName}, ${porcentaje}%)`,
+              "Distribución de Ingresos": [distribucionId],
+              "Cajas": [cajaId]
+            }
+          })
+        });
+
+        if (parcialResp.ok) {
+          registrosCreados++;
+        } else {
+          const errDet = await parcialResp.json();
+          console.error(`Error al crear ingreso parcial para "${cajaName}":`, errDet);
+        }
+      }
+
+      status.textContent = `¡Listo! Se creó 1 ingreso principal y ${registrosCreados} ingresos parciales.`;
+      await mostrarCajas();
+    }
+
+    // ------------------------------------------------------------------------
+    // 6) Al cargar la página, llenamos el <select> y mostramos las cajas
+    // ------------------------------------------------------------------------
+    window.onload = () => {
+      cargarDistribuciones();
+      mostrarCajas();
+    };
+  </script>
+</body>
+</html>
