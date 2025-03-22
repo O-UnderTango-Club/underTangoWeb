@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Bellerose';
-  src: url('/fonts/Bellerose.ttf') format('woff');
+  src: url('/public/fonts/Bellerose.ttf') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -13,31 +13,41 @@
   --accent: #ffd166;
   --highlight: #4ecdc4;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --font-primary: 'Poppins', sans-serif;
+  --font-primary: 'Bellerose', sans-serif;
   --font-secondary: 'Playfair Display', serif;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Bellerose', sans-serif;
+  font-family: var(--font-primary);
   background-color: var(--background);
   color: var(--text);
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 .section-title {
-  font-family: 'Bellerose', sans-serif;
+  font-family: var(--font-primary);
   font-size: 3rem;
   margin-bottom: 1.5rem;
   position: relative;
   display: inline-block;
+  text-align: center;
 }
 
 .section-title::after {
@@ -126,7 +136,7 @@ body {
 }
 
 .highlight-card h3 {
-  font-family: 'Bellerose', sans-serif;
+  font-family: var(--font-primary);
   font-size: 1.7rem;
   margin-bottom: 1rem;
 }
@@ -370,30 +380,144 @@ body {
   font-size: 24px;
 }
 
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 2.5rem;
-  }
-  
-  .highlight-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-  
-  .reserva-form {
-    padding: 2rem;
-  }
-  
-  .button-select {
-    flex-direction: column;
-  }
-  
-}
-
 .animated {
   animation: float 3s ease-in-out infinite;
 }
 
 input[type="hidden"] {
   display: none;
+}
+
+/* Media Queries para mejorar la responsividad */
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 2.7rem;
+  }
+  
+  .highlight-card {
+    flex: 1 1 calc(50% - 2rem);
+    max-width: 100%;
+  }
+  
+  .reserva-form {
+    padding: 2.5rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.3rem;
+  }
+  
+  .section-text {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .highlight-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+  
+  .highlight-card i {
+    font-size: 3rem;
+  }
+  
+  .highlight-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .highlight-card p {
+    font-size: 1rem;
+  }
+  
+  .reserva-form {
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+  }
+  
+  .button-select {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .select-button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact .section-title {
+    font-size: 2.3rem;
+  }
+  
+  .contact .section-text {
+    font-size: 1rem;
+  }
+  
+  .contact-button {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+  }
+  
+  .shows-section, .reserva-section, .contact {
+    padding: 4rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .highlight-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .highlight-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .highlight-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .reserva-form {
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .submit-button {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  .contact-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .contact-button i {
+    font-size: 20px;
+  }
+  
+  .shows-section, .reserva-section, .contact {
+    padding: 3rem 1rem;
+  }
 }

@@ -4,32 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clases Privadas - UnderTango Club</title>
-  <link rel="stylesheet" href="/styles/clases-privadas.css">
-  <link rel="stylesheet" href="/styles/footer.css">
-  <link rel="stylesheet" href="/styles/navbar.css">
-  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/public/styles/clases-privadas.css">
+  <link rel="stylesheet" href="/public/styles/footer.css">
+  <link rel="stylesheet" href="/public/styles/navbar.css">
+  <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Chewy&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <nav id="navbar">
     <div class="logo">
-      <img src="/assets/Under-logo-transparente.png" alt="UnderTango Logo">
+      <img src="/public/assets/Under-logo-transparente.png" alt="UnderTango Logo">
     </div>
-    <ul>
-      <li><a href="/index.html">Inicio</a></li>
-      <li><a href="#classes">Clases Privadas</a></li>
+    <button id="menu-toggle" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul id="navbar-menu">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="#">Clases</a></li>
       <li><a href="#benefits">Beneficios</a></li>
       <li><a href="#contact">Contacto</a></li>
     </ul>
   </nav>
 
   <section class="hero">
-    <img src="/assets/tango-hero.jpg" alt="Tango dancers silhouette" class="hero-image">
+    <img src="/public/assets/tango-hero.jpg" alt="Tango dancers silhouette" class="hero-image">
     <div class="hero-content">
       <h1 class="hero-title">Clases Privadas de Tango</h1>
       <p class="hero-subtitle">Disfruta de la atención personalizada en nuestras clases privadas de tango, disponibles todos los días en Puerto Iguazú, Misiones.</p>
-      <a href="https://wa.me/1234567890" class="hero-button">
+      <a href="https://wa.me/+5493757618270" class="hero-button">
         <i class="fab fa-whatsapp"></i>
         Reserva tu Clase por WhatsApp
       </a>
@@ -134,7 +137,7 @@
   <section class="contact" id="contact">
     <div class="container">
       <h2 class="contact-title">Reserva tu Clase</h2>
-      <a href="https://wa.me/1234567890" class="contact-button">
+      <a href="https://wa.me/+5493757618270" class="contact-button">
         <i class="fab fa-whatsapp"></i>
         Contáctanos por WhatsApp
       </a>
@@ -145,7 +148,7 @@
     <div class="footer-content">
       <div class="footer-section">
         <h3>Contacto</h3>
-        <p>Email: info@undertango.com</p>
+        <p>Email: undertangoclub@gmail.com</p>
         <p>Teléfono: +54 9 3757 61-8270</p>
       </div>
       <div class="footer-section">
@@ -170,6 +173,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="/public/scripts/clases.js"></script>
 </body>
 </html>

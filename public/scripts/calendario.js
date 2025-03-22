@@ -371,6 +371,9 @@ function aplicarEstilos(eventElement, horaEl, lugarEl, interpreteEl) {
     } else if (it === "yyd") {
       interpreteEl.style.backgroundColor = "#267713";
       interpreteEl.style.color = "white";
+    } else if (it === "team-4") {
+      interpreteEl.style.backgroundColor = "#9c27b0";
+      interpreteEl.style.color = "white";
     } else if (it === "team-6") {
       interpreteEl.style.backgroundColor = "green";
       interpreteEl.style.color = "black";
@@ -443,6 +446,10 @@ async function obtenerOpcionesInterpretes() {
 
     const data = await response.json();
     const interpretesSet = new Set();
+    
+    // Agregar Team-4 y Team-6 por defecto
+    interpretesSet.add("Team-4");
+    interpretesSet.add("Team-6");
 
     data.records.forEach((record) => {
       const campoInterprete = record.fields.interprete;
@@ -458,7 +465,8 @@ async function obtenerOpcionesInterpretes() {
     return Array.from(interpretesSet);
   } catch (error) {
     console.error("Error al obtener intérpretes:", error);
-    return [];
+    // En caso de error, al menos retornar los equipos por defecto
+    return ["Team-4", "Team-6", "BYP", "TYM", "YYD", "BYPYS"];
   }
 }
 
@@ -755,9 +763,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  setMonth(1);
+  // Obtener el mes actual (0-11)
+  const currentDate = new Date();
+  const currentMonthIndex = currentDate.getMonth();
+  
+  // Iniciar en el mes actual
+  setMonth(currentMonthIndex);
+  
+  // Activar el mes correcto en la lista de meses
   document
-    .querySelector("#months-list li[data-month='0']")
+    .querySelector(`#months-list li[data-month='${currentMonthIndex}']`)
     .classList.add("active");
 
   const editBtn = document.querySelector("#edit-btn");
