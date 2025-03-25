@@ -150,6 +150,7 @@
 </div>
 
 <script>
+  // @ts-nocheck
 // ======================================================
 // 1. CONFIGURACIÓN DE AIRTABLE
 // ======================================================
@@ -265,40 +266,161 @@ async function registrarNuevoIngreso() {
   // Si es "Purga", queda "Sin distribución"
 
   // 3) Buscar las filas de "Distribuciones" para esa distribución
-  const formulaFiltro = encodeURIComponent(`{Tipo de Distrib.} = '${nombreDeDistribucion}'`);
-  const respuestaDistribuciones = await fetch(`${URL_AIRTABLE}${TABLAS.distribuciones}?filterByFormula=${formulaFiltro}`, {
+  const formulaFiltro = encodeURIComponent(`{Distribución} = '${nombreDeDistribucion}'`);
+  console.log("Filter URL:", `${URL_AIRTABLE}${TABLAS.distribuciones}?filterByFormula=${formulaFiltro}`);
+
+  try {
+    const respuestaDistribuciones = await fetch(`${URL_AIRTABLE}${TABLAS.distribuciones}?filterByFormula=${formulaFiltro}`, {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    });
+
+    if (!respuestaDistribuciones.ok) {
+      const errorData = await respuestaDistribuciones.json();
+      console.error("API Error:", errorData);
+      etiquetaEstado.textContent = `Error fetching distributions: ${errorData.error.message || "Unknown error"}`;
+      return;
+    }
+
+    const datosDistribuciones = await respuestaDistribuciones.json();
+    console.log("Distributions data:", datosDistribuciones);
+
+    if (!datosDistribuciones.records || datosDistribuciones.records.length === 0) {
+      etiquetaEstado.textContent = `No se encontró configuración de distribución para ${nombreDeDistribucion}. Se asume 100% a Caja Undertango.`;
+      return;
+    }
+
+    // 4) Para cada fila en “Distribuciones”, crear un ingreso parcial apuntando a la caja
+for (const registroDistribucion of datosDistribuciones.records) {
+  const camposDistribucion = registroDistribucion.fields;
+  const porcentaje = parseFloat(camposDistribucion["Porcentaje"]) || 0;
+
+  // "Caja" es un campo de enlace, así que es un array de IDs
+  const arrayIdsCajas = camposDistribucion["Caja"] || [];
+  if (porcentaje <= 0 || arrayIdsCajas.length === 0) {
+    console.log("Skipping distribution record - Invalid percentage or missing Caja link:", camposDistribucion);
+    continue;
+  }
+
+  const idDeCaja = arrayIdsCajas[0];
+
+  // Opcional: obtener el nombre de la caja para mostrar en las notas
+  const respCaja = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}/${idDeCaja}`, {
     headers: { Authorization: `Bearer ${API_KEY}` }
   });
-  const datosDistribuciones = await respuestaDistribuciones.json();
+  const datosCaja = await respCaja.json();
+  const nombreCaja = datosCaja.fields.Name || "Caja sin nombre";
 
-  if (!datosDistribuciones.records || datosDistribuciones.records.length === 0) {
-    etiquetaEstado.textContent = `No se encontró configuración de distribución para ${nombreDeDistribucion}. Se asume 100% a Caja Undertango.`;
+  const montoParcial = (monto * porcentaje) / 100;
+
+  // Crear el registro de ingreso parcial y relacionarlo con la caja mediante su ID
+  await fetch(`${URL_AIRTABLE}${TABLAS.ingresos}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      fields: {
+        "Monto Total": montoParcial,
+        "Fecha de Ingreso": fecha,
+        "Origen del Ingreso": origen,
+        "Notas": `${notas} (Distribución: ${porcentaje}% a ${nombreCaja})`,
+        "Cajas": [idDeCaja]
+      }
+    })
+  });
+}
+
+
+
+    etiquetaEstado.textContent = "Ingreso registrado y distribuido correctamente.";
+    mostrarTodasLasCajas();
+  } catch (error) {
+    console.error("Fetch error:", error);
+    etiquetaEstado.textContent = "Error connecting to Airtable: " + error.message;
+  }
+}
+
+// ======================================================
+// 6. REGISTRAR NUEVO EGRESO
+// ======================================================
+async function registrarNuevoIngreso() {
+  const etiquetaEstado = document.getElementById("status");
+  etiquetaEstado.textContent = "Registrando Ingreso...";
+
+  const monto = parseFloat(document.getElementById("ingresoMonto").value);
+  const fecha = document.getElementById("ingresoFecha").value;
+  const origen = document.getElementById("ingresoOrigen").value;
+  const notas = document.getElementById("ingresoNotas").value || "";
+
+  if (!monto || !fecha || !origen) {
+    etiquetaEstado.textContent = "Por favor, completa todos los campos del Ingreso.";
     return;
   }
 
-  // 4) Para cada fila en “Distribuciones”, crear un ingreso parcial y actualizar la caja
-  for (const registroDistribucion of datosDistribuciones.records) {
-    const camposDistribucion = registroDistribucion.fields;
-    const nombreDeCaja = camposDistribucion["Caja"] || "";
-    const porcentaje = parseFloat(camposDistribucion["Porcentaje"]) || 0;
+  try {
+    // 1) Registrar el Ingreso principal en la tabla "Ingresos"
+    await fetch(`${URL_AIRTABLE}${TABLAS.ingresos}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        fields: {
+          "Monto Total": monto,
+          "Fecha de Ingreso": fecha,
+          "Origen del Ingreso": origen,
+          "Notas": notas
+        }
+      })
+    });
 
-    if (porcentaje > 0) {
-      const montoParcial = (monto * porcentaje) / 100;
+    // 2) Determinar la distribución según el origen
+    let nombreDeDistribucion = "Sin distribución";
+    if (origen.includes("Meliá")) {
+      nombreDeDistribucion = "Distr. Meliá";
+    } else if (origen.includes("Cruceros")) {
+      nombreDeDistribucion = "Distr. Cruceros";
+    } else if (origen.includes("DAM")) {
+      nombreDeDistribucion = "Distr. DAM";
+    } else if (origen.includes("Clases")) {
+      nombreDeDistribucion = "Distr. Academy";
+    }
+    // Si es "Purga", queda "Sin distribución"
 
-      // a) Buscar la caja en la tabla "Cajas"
-      const respCaja = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}?filterByFormula=${encodeURIComponent(`{Name}='${nombreDeCaja}'`)}`, {
+    // 3) Buscar las filas de "Distribuciones" para esa distribución
+    const formulaFiltro = encodeURIComponent(`{Distribución} = '${nombreDeDistribucion}'`);
+    console.log("Filter URL:", `${URL_AIRTABLE}${TABLAS.distribuciones}?filterByFormula=${formulaFiltro}`);
+
+    const respuestaDistribuciones = await fetch(`${URL_AIRTABLE}${TABLAS.distribuciones}?filterByFormula=${formulaFiltro}`, {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    });
+
+    if (!respuestaDistribuciones.ok) {
+      const errorData = await respuestaDistribuciones.json();
+      console.error("API Error:", errorData);
+      etiquetaEstado.textContent = `Error fetching distributions: ${errorData.error.message || "Unknown error"}`;
+      return;
+    }
+
+    const datosDistribuciones = await respuestaDistribuciones.json();
+    console.log("Distributions data:", datosDistribuciones);
+
+    if (!datosDistribuciones.records || datosDistribuciones.records.length === 0) {
+      etiquetaEstado.textContent = `No se encontró configuración de distribución para ${nombreDeDistribucion}. Se asume 100% a Caja Undertango.`;
+      // Optionally, register the ingreso to "Caja Undertango" if no distribution is found
+      const respCaja = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}?filterByFormula=${encodeURIComponent(`{Name}='Caja Undertango'`)}`, {
         headers: { Authorization: `Bearer ${API_KEY}` }
       });
       const datosCaja = await respCaja.json();
+
       if (!datosCaja.records || datosCaja.records.length === 0) {
-        console.log("No se encontró la caja:", nombreDeCaja);
-        continue;
+        etiquetaEstado.textContent = "No se encontró la Caja Undertango.";
+        return;
       }
 
       const idDeCaja = datosCaja.records[0].id;
-      const totalActualCaja = datosCaja.records[0].fields["Total"] || 0;
-
-      // b) Crear un registro de ingreso (parcial) apuntando a esa caja
       await fetch(`${URL_AIRTABLE}${TABLAS.ingresos}`, {
         method: "POST",
         headers: {
@@ -307,103 +429,70 @@ async function registrarNuevoIngreso() {
         },
         body: JSON.stringify({
           fields: {
-            "Monto Total": montoParcial,
+            "Monto Total": monto,
             "Fecha de Ingreso": fecha,
             "Origen del Ingreso": origen,
-            "Notas": `${notas} (Distribución: ${porcentaje}%)`,
-            // Campo de relación (link) a la Caja
+            "Notas": `${notas} (Sin distribución)`,
             "Cajas": [idDeCaja]
           }
         })
       });
 
-      // c) Actualizar el total de la caja
-      const nuevoTotalCaja = totalActualCaja + montoParcial;
-      await fetch(`${URL_AIRTABLE}${TABLAS.cajas}/${idDeCaja}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          fields: {
-            "Total": nuevoTotalCaja
-          }
-        })
-      });
+      etiquetaEstado.textContent = "Ingreso registrado correctamente en Caja Undertango.";
+      mostrarTodasLasCajas();
+      return;
     }
-  }
 
-  etiquetaEstado.textContent = "Ingreso registrado y distribuido correctamente.";
-  mostrarTodasLasCajas();
-}
+    // 4) Para cada fila en “Distribuciones”, crear un ingreso parcial y link it to the corresponding caja
+    for (const registroDistribucion of datosDistribuciones.records) {
+      const camposDistribucion = registroDistribucion.fields;
+      const nombreDeCaja = camposDistribucion["Caja"] || ""; // Get the caja name (e.g., "Caja Undertango")
+      const porcentaje = parseFloat(camposDistribucion["Porcentaje"]) || 0;
 
-// ======================================================
-// 6. REGISTRAR NUEVO EGRESO
-// ======================================================
-async function registrarNuevoEgreso() {
-  const etiquetaEstado = document.getElementById("status");
-  etiquetaEstado.textContent = "Registrando Egreso...";
+      if (porcentaje > 0 && nombreDeCaja) {
+        // a) Look up the caja in the "Cajas" table by name to get its ID
+        const respCaja = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}?filterByFormula=${encodeURIComponent(`{Name}='${nombreDeCaja}'`)}`, {
+          headers: { Authorization: `Bearer ${API_KEY}` }
+        });
+        const datosCaja = await respCaja.json();
 
-  const monto = parseFloat(document.getElementById("egresoMonto").value);
-  const fecha = document.getElementById("egresoFecha").value;
-  const cajaOrigen = document.getElementById("egresoCajaOrigen").value;
-  const descripcionEgreso = document.getElementById("egresoDescripcion").value || "";
+        if (!datosCaja.records || datosCaja.records.length === 0) {
+          console.log("No se encontró la caja:", nombreDeCaja);
+          continue; // Skip this distribution if the caja is not found
+        }
 
-  if (!monto || !fecha || !cajaOrigen) {
-    etiquetaEstado.textContent = "Por favor, completa todos los campos del Egreso.";
-    return;
-  }
+        const idDeCaja = datosCaja.records[0].id; // Get the record ID of the caja
+        const montoParcial = (monto * porcentaje) / 100;
 
-  // 1) Crear registro en "Egresos"
-  await fetch(`${URL_AIRTABLE}${TABLAS.egresos}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      fields: {
-        "Fecha de Egreso": fecha,
-        "Caja de Origen": cajaOrigen,
-        "Monto del Egreso": monto,
-        "Descripción del Egreso": descripcionEgreso
+        // b) Crear un registro de ingreso (parcial) apuntando a esa caja
+        await fetch(`${URL_AIRTABLE}${TABLAS.ingresos}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fields: {
+              "Monto Total": montoParcial,
+              "Fecha de Ingreso": fecha,
+              "Origen del Ingreso": origen,
+              "Notas": `${notas} (Distribución: ${porcentaje}%)`,
+              "Cajas": [idDeCaja]
+            }
+          })
+        });
+      } else {
+        console.log("Skipping distribution record - Invalid percentage or caja:", camposDistribucion);
       }
-    })
-  });
+    }
 
-  // 2) Restar el monto a la caja de origen
-  const respuestaCajaOrigen = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}?filterByFormula=${encodeURIComponent(`{Name}='${cajaOrigen}'`)}`, {
-    headers: { Authorization: `Bearer ${API_KEY}` }
-  });
-  const datosCajaOrigen = await respuestaCajaOrigen.json();
-
-  if (!datosCajaOrigen.records || datosCajaOrigen.records.length === 0) {
-    etiquetaEstado.textContent = "No se encontró la caja de origen.";
-    return;
+    etiquetaEstado.textContent = "Ingreso registrado y distribuido correctamente.";
+    mostrarTodasLasCajas();
+  } catch (error) {
+    console.error("Fetch error:", error);
+    etiquetaEstado.textContent = "Error connecting to Airtable: " + error.message;
   }
-
-  const idCajaOrigen = datosCajaOrigen.records[0].id;
-  const totalActualOrigen = datosCajaOrigen.records[0].fields["Total"] || 0;
-  const nuevoTotalOrigen = totalActualOrigen - monto;
-
-  await fetch(`${URL_AIRTABLE}${TABLAS.cajas}/${idCajaOrigen}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      fields: {
-        "Total": nuevoTotalOrigen
-      }
-    })
-  });
-
-  etiquetaEstado.textContent = "Egreso registrado correctamente.";
-  mostrarTodasLasCajas();
 }
-
 // ======================================================
 // 7. REGISTRAR NUEVA TRANSFUSIÓN (TRANSFERENCIA ENTRE CAJAS)
 // ======================================================
