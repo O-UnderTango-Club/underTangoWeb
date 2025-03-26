@@ -344,7 +344,7 @@ for (const registroDistribucion of datosDistribuciones.records) {
 // ======================================================
 // 6. REGISTRAR NUEVO EGRESO
 // ======================================================
-async function registrarNuevoIngreso() {
+async function registrarNuevoEgreso() {
   const etiquetaEstado = document.getElementById("status");
   etiquetaEstado.textContent = "Registrando Ingreso...";
 
@@ -379,7 +379,7 @@ async function registrarNuevoIngreso() {
     // 2) Determinar la distribución según el origen
     let nombreDeDistribucion = "Sin distribución";
     if (origen.includes("Meliá")) {
-      nombreDeDistribucion = "Distr. Meliá";
+      nombreDeDistribucion = "Distr. Meliá".normalize("NFC");
     } else if (origen.includes("Cruceros")) {
       nombreDeDistribucion = "Distr. Cruceros";
     } else if (origen.includes("DAM")) {

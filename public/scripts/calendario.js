@@ -419,8 +419,12 @@ async function obtenerOpcionesLugares() {
 
     data.records.forEach((record) => {
       const campoLugar = record.fields.lugar;
-      if (campoLugar && typeof campoLugar === "string") {
-        lugaresSet.add(campoLugar);
+      if (campoLugar) {
+        if (Array.isArray(campoLugar)) {
+          campoLugar.forEach(item => lugaresSet.add(item));
+        } else if (typeof campoLugar === "string") {
+          lugaresSet.add(campoLugar);
+        }
       }
     });
 
@@ -430,6 +434,7 @@ async function obtenerOpcionesLugares() {
     return [];
   }
 }
+
 
 async function obtenerOpcionesInterpretes() {
   try {
