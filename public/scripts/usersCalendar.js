@@ -64,54 +64,55 @@ function changeMonth(offset) {
 }
 
 async function loadEvents() {
-  showLoading(true)
+  showLoading(true);
 
   try {
-    let allRecords = []
-    let offset = null
+    let allRecords = [];
+    let offset = null;
 
     do {
       const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?sort%5B0%5D%5Bfield%5D=fecha&sort%5B1%5D%5Bfield%5D=hora${
         offset ? "&offset=" + offset : ""
-      }`
+      }`;
 
       const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${AIRTABLE_TOKEN}`,
           "Content-Type": "application/json",
         },
-      })
+      });
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      const data = await response.json()
-      allRecords = [...allRecords, ...data.records]
-      offset = data.offset
-    } while (offset)
+      const data = await response.json();
+      allRecords = [...allRecords, ...data.records];
+      offset = data.offset;
+    } while (offset);
 
-    const monthStr = String(currentMonth + 1).padStart(2, "0")
-    const monthPattern = `${currentYear}-${monthStr}`
+    const monthStr = String(currentMonth + 1).padStart(2, "0");
+    const monthPattern = `${currentYear}-${monthStr}`;
+    const excludedWords = ["ensayo", "reunión ø central", "licencia"]; // Palabras a excluir
 
     events = allRecords
       .filter((record) => record.fields.fecha?.startsWith(monthPattern))
       .filter((record) => {
-        const lugar = record.fields.lugar?.toLowerCase() || ""
-        return !lugar.includes("ensayo")
+        const lugar = record.fields.lugar?.toLowerCase() || "";
+        // Retorna true si NINGUNA de las palabras excluidas está presente en el lugar
+        return !excludedWords.some(word => lugar.includes(word));
       })
       .map((record) => ({
         id: record.id,
         ...record.fields,
-      }))
+      }));
 
-    renderCalendar()
+    renderCalendar();
   } catch (error) {
-    console.error("Error loading events:", error)
-    calendarGrid.innerHTML = `<div class="loading">Error al cargar eventos: ${error.message}</div>`
+    console.error("Error loading events:", error);
+    calendarGrid.innerHTML = `<div class="loading">Error al cargar eventos: ${error.message}</div>`;
   } finally {
-    showLoading(false)
+    showLoading(false);
   }
 }
-
 function showLoading(isLoading) {
   if (isLoading) {
     loadingIndicator.style.display = "block"
