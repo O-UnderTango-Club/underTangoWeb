@@ -491,7 +491,7 @@
        * - "Plazo Fijo"
        * - "Activo"
        */
-      async function obtenerEvolucionActivos() {
+       async function obtenerEvolucionActivos() {
         try {
           const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(
             TABLE_CALENDARIO
@@ -510,12 +510,13 @@
               montoALaFecha: parseFloat(registro.fields["Monto a la Fecha"]) || 0,
               plazoFijo: parseFloat(registro.fields["Plazo Fijo"]) || 0,
               activo: parseFloat(registro.fields["Activo"]) || 0,
+              totalDistribucionMensual: parseFloat(registro.fields["Total Distribución Mensual"]) || 0,
             }));
         } catch (error) {
           console.error("obtenerEvolucionActivos:", error);
         }
       }
-
+      
       /**
        * Obtiene todos los registros de la tabla "Cajas" y crea un mapa de IDs a nombres.
        */
@@ -708,18 +709,18 @@
        * Renderiza el gráfico de evolución (Calendario) usando Chart.js,
        * mostrando "Monto a la Fecha", "Plazo Fijo" y "Activo".
        */
-      function dibujarGrafico() {
+       function dibujarGrafico() {
         const contexto = document.getElementById("chartEvolucion").getContext("2d");
-        // Asegurar que esté ordenado por fecha
         historicoActivos.sort((a, b) => a.fecha - b.fecha);
-
+      
         const etiquetas = historicoActivos.map((item) =>
           item.fecha.toLocaleDateString("es-AR")
         );
         const datosMonto = historicoActivos.map((item) => item.montoALaFecha);
         const datosPlazoFijo = historicoActivos.map((item) => item.plazoFijo);
         const datosActivo = historicoActivos.map((item) => item.activo);
-
+        const datosDistribucionMensual = historicoActivos.map((item) => item.totalDistribucionMensual);
+      
         new Chart(contexto, {
           type: "line",
           data: {
@@ -749,6 +750,15 @@
                 borderWidth: 2,
                 fill: true,
               },
+              {
+                label: "Total Distribución Mensual",
+                data: datosDistribucionMensual,
+                backgroundColor: "rgba(40, 167, 69, 0.2)",
+                borderColor: "rgba(40, 167, 69, 1)",
+                borderDash: [5, 5], // Línea punteada
+                borderWidth: 2,
+                fill: true,
+              },
             ],
           },
           options: {
@@ -767,7 +777,7 @@
           },
         });
       }
-
+      
       /**
        * Renderiza los movimientos en la tabla correspondiente.
        */
