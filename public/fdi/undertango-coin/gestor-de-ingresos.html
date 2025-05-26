@@ -627,33 +627,60 @@ async function registrarNuevaTransfusion() {
 }// ======================================================
 // 8. MOSTRAR TODAS LAS CAJAS Y SUS TOTALES
 // ======================================================
+// ======================================================
+// 8. MOSTRAR TODAS LAS CAJAS Y SUS TOTALES
+// ======================================================
+// ======================================================
+// 8. MOSTRAR TODAS LAS CAJAS Y SUS TOTALES (ordenadas y filtradas)
+// ======================================================
 async function mostrarTodasLasCajas() {
   const contenedorCajas = document.getElementById("cajas");
   contenedorCajas.innerHTML = "Cargando cajas...";
-  
+
   const respuestaCajas = await fetch(`${URL_AIRTABLE}${TABLAS.cajas}?view=Grid%20view`, {
     headers: { Authorization: `Bearer ${API_KEY}` }
   });
   const datosCajas = await respuestaCajas.json();
-  
+
   contenedorCajas.innerHTML = "";
   if (!datosCajas.records || datosCajas.records.length === 0) {
     contenedorCajas.innerHTML = "No se encontraron cajas.";
     return;
   }
 
-  // Mostrar cada caja con su total actual
-  datosCajas.records.forEach(registroCaja => {
+  // Formateador en formato argentino: $ 1.234,56
+  const formatter = new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+
+  // Nombres de cajas que se deben excluir
+  const cajasExcluidas = ["Caché Pablo", "Caché Bia", "Impuestos"];
+
+  // Filtrar y ordenar de menor a mayor según el saldo
+  const cajasFiltradas = datosCajas.records
+    .filter(registro => !cajasExcluidas.includes(registro.fields.Name))
+    .sort((a, b) => {
+      const saldoA = a.fields["Balance Actual Calculado"] || 0;
+      const saldoB = b.fields["Balance Actual Calculado"] || 0;
+      return saldoA - saldoB;
+    });
+
+  // Mostrar cada caja filtrada y ordenada
+  cajasFiltradas.forEach(registroCaja => {
     const divCaja = document.createElement("div");
     divCaja.className = "caja-info";
 
     const nombreCaja = registroCaja.fields.Name;
-    const totalCaja = registroCaja.fields.Total || 0;
+    const totalCaja = registroCaja.fields["Balance Actual Calculado"] || 0;
 
-    divCaja.innerHTML = `<strong>${nombreCaja}</strong>: $${totalCaja}`;
+    divCaja.innerHTML = `<strong>${nombreCaja}</strong>: ${formatter.format(totalCaja)}`;
     contenedorCajas.appendChild(divCaja);
   });
 }
+
 
 // ======================================================
 // 9. CARGAR SELECT DE CAJAS (EGRESOS Y TRANSFUSIONES)
