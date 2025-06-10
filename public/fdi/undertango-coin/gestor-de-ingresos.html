@@ -166,6 +166,17 @@ const TABLAS = {
   transfusiones: "Transfusiones"
 };
 
+// Lista de cajas que no deben mostrarse en la interfaz
+const cajasExcluidas = [
+  "Caché Pablo",
+  "Caché Bia",
+  "Impuestos",
+  "UnderTango en Dólares",
+  "Caja de ahorro",
+  "Primarios",
+  "Plazo Fijo"
+];
+
 // ======================================================
 // 2. AL CARGAR LA PÁGINA
 // ======================================================
@@ -656,8 +667,6 @@ async function mostrarTodasLasCajas() {
     maximumFractionDigits: 2
   });
 
-  // Nombres de cajas que se deben excluir
-  const cajasExcluidas = ["Caché Pablo", "Caché Bia", "Impuestos"];
 
   // Filtrar y ordenar de menor a mayor según el saldo
   const cajasFiltradas = datosCajas.records
@@ -701,13 +710,16 @@ async function cargarSeleccionDeCajas(idDelSelect) {
     return;
   }
 
-  // Agregar opciones según el campo "Name" de cada caja
-  datosCajas.records.forEach(registroCaja => {
-    const opcion = document.createElement("option");
-    opcion.value = registroCaja.fields.Name; // Si tus campos “Caja de Origen/Destino” aceptan texto
-    opcion.text = registroCaja.fields.Name;
-    selectCajas.appendChild(opcion);
-  });
+  // Agregar opciones según el campo "Name" de cada caja, excluyendo las no deseadas
+  datosCajas.records
+    .filter(registro => !cajasExcluidas.includes(registro.fields.Name))
+    .forEach(registroCaja => {
+      const opcion = document.createElement("option");
+      // Si tus campos “Caja de Origen/Destino” aceptan texto
+      opcion.value = registroCaja.fields.Name;
+      opcion.text = registroCaja.fields.Name;
+      selectCajas.appendChild(opcion);
+    });
 }
 </script>
 
