@@ -1,0 +1,120 @@
+[00:00:01.238] Server  LOG      ✓ Ready in 808ms
+[00:00:04.280] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:04.439] Browser LOG     Permiso concedido
+[00:00:04.439] Browser LOG     SW de Firebase registrado
+[00:00:04.439] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:00:04.507] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:05.071] Browser LOG     SW general registrado: http://localhost:3000/
+[00:00:05.071] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:00:05.071] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:00:05.161] Browser LOG     Permiso concedido
+[00:00:05.161] Browser LOG     SW de Firebase registrado
+[00:00:05.161] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:00:05.161] Browser LOG     SW general registrado: http://localhost:3000/
+[00:00:05.161] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:00:06.157] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:00:22.094] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:22.327] Browser LOG     SW general registrado: http://localhost:3000/
+[00:00:22.327] Browser LOG     Permiso concedido
+[00:00:22.327] Browser LOG     SW de Firebase registrado
+[00:00:22.327] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:00:22.327] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:00:22.996] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:00:41.509] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:41.745] Browser LOG     Permiso concedido
+[00:00:41.745] Browser LOG     SW general registrado: http://localhost:3000/
+[00:00:41.745] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:00:41.745] Browser LOG     SW de Firebase registrado
+[00:00:41.745] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:00:42.397] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:00:42.795] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:43.039] Browser LOG     Permiso concedido
+[00:00:43.039] Browser LOG     SW general registrado: http://localhost:3000/
+[00:00:43.040] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:00:43.040] Browser LOG     SW de Firebase registrado
+[00:00:43.040] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:00:43.970] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:02:41.612] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:41.791] Browser LOG     Permiso concedido
+[00:02:41.791] Browser LOG     SW de Firebase registrado
+[00:02:41.791] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:02:42.567] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:02:57.169] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:57.469] Browser LOG     SW general registrado: http://localhost:3000/
+[00:02:57.469] Browser LOG     Permiso concedido
+[00:02:57.469] Browser LOG     SW de Firebase registrado
+[00:02:57.469] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:02:57.469] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:02:58.078] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:03:39.909] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:40.187] Browser LOG     Permiso concedido
+[00:03:40.187] Browser LOG     SW general registrado: http://localhost:3000/
+[00:03:40.187] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:03:40.187] Browser LOG     SW de Firebase registrado
+[00:03:40.187] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:03:40.936] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:04:07.677] Server  ERROR    ⨯ ./app/updatePassword/page.tsx:1:1
+Module not found: Can't resolve '@/components/UpdatePassword'
+> 1 | import UpdatePassword from "@/components/UpdatePassword";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function UpdatePasswordPage() {
+  4 |   return (
+
+Import map: aliased to relative './components/UpdatePassword' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:04:07.678] Server  ERROR    ⨯ ./app/updatePassword/page.tsx:1:1
+Module not found: Can't resolve '@/components/UpdatePassword'
+> 1 | import UpdatePassword from "@/components/UpdatePassword";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function UpdatePasswordPage() {
+  4 |   return (
+
+Import map: aliased to relative './components/UpdatePassword' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:04:07.713] Server  LOG      ✓ Compiled in 38ms
+[00:04:08.157] Browser ERROR   ./app/updatePassword/page.tsx:1:1
+Module not found: Can't resolve '@/components/UpdatePassword'
+> 1 | import UpdatePassword from "@/components/UpdatePassword";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function UpdatePasswordPage() {
+  4 |   return (
+
+Import map: aliased to relative './components/UpdatePassword' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found
+[00:04:08.157] Browser ERROR   ./app/updatePassword/page.tsx:1:1
+Module not found: Can't resolve '@/components/UpdatePassword'
+> 1 | import UpdatePassword from "@/components/UpdatePassword";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function UpdatePasswordPage() {
+  4 |   return (
+
+Import map: aliased to relative './components/UpdatePassword' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found
+[00:04:15.957] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:16.216] Browser LOG     Permiso concedido
+[00:04:16.216] Browser LOG     SW general registrado: http://localhost:3000/
+[00:04:16.216] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:04:16.216] Browser LOG     SW de Firebase registrado
+[00:04:16.216] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:04:18.164] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}
+[00:04:19.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:19.843] Browser LOG     Permiso concedido
+[00:04:19.843] Browser LOG     SW general registrado: http://localhost:3000/
+[00:04:19.843] Browser ERROR   Error registrando firebase-messaging-sw.js: {}
+[00:04:19.844] Browser LOG     SW de Firebase registrado
+[00:04:19.844] Browser LOG     Token generado: dwR21gyO0kEt98kWFc-hQz:APA91bFfShbgN_TCoM86bInqha0KxhzR-CcRBGRpcj83WweDqeDahpzUID2bwrN_thrWmrK8VPuVraqalsnD08wQg_j2p-q_qHWjw1Uli6iA2qSwJ7cz-GI
+[00:04:20.461] Browser ERROR   Error guardando token: {"code":"permission-denied","name":"FirebaseError"}

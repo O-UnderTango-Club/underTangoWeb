@@ -173,6 +173,11 @@
   align-items: center;
 }
 
+#navbar {
+  font-family: 'Cinzel', serif;
+}
+
+
 .auth-buttons a {
   font-family: "Bellerose", sans-serif;
   color: var(--white);

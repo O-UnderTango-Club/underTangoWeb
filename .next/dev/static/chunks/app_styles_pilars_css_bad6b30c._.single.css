@@ -1,0 +1,92 @@
+/* [project]/app/styles/pilars.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#pillars {
+  background-color: var(--burgundy);
+  clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+  justify-content: space-around;
+  display: flex;
+}
+
+.pillar {
+  text-align: center;
+  padding: 1px;
+  transition: all .3s;
+}
+
+.pillar:hover {
+  transform: translateY(-10px);
+}
+
+.pillar h2 {
+  margin-bottom: 0;
+  font-family: Bellerose, sans-serif;
+  font-size: 2.5rem;
+}
+
+.content-wrapper {
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+}
+
+.content-wrapper.reverse {
+  flex-direction: row-reverse;
+}
+
+.text-content {
+  flex: 1;
+  padding: 0;
+}
+
+.text-content h2 {
+  color: var(--burgundy);
+  margin-bottom: 10px;
+  font-family: Bellerose, sans-serif;
+  font-size: 2.5rem;
+}
+
+.text-content p {
+  color: var(--white);
+  font-family: Bellerose, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.image-content {
+  text-align: center;
+  flex: 1;
+  padding: 0;
+}
+
+.image-content img {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px #0003;
+}
+
+@media (max-width: 768px) {
+  #pillars {
+    clip-path: none;
+    flex-direction: column;
+  }
+
+  .pillar {
+    padding: 20px 0;
+  }
+
+  .pillar h2 {
+    font-size: 2rem;
+  }
+}
+
+/*# sourceMappingURL=app_styles_pilars_css_bad6b30c._.single.css.map*/

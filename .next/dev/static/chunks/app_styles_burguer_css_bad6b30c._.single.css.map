@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/styles/burguer.css"],"sourcesContent":["@font-face {\r\n    font-family: 'Bellerose';\r\n    src: url('/assets/fonts/Bellerose.ttf') format('woff');\r\n    font-weight: normal;\r\n    font-style: normal;\r\n  }\r\n  \r\n  #menu-toggle {\r\n    background: transparent;\r\n    border: none;\r\n    cursor: pointer;\r\n    display: none;\r\n    padding: 10px;\r\n    z-index: 1001;\r\n    font-family: 'Bellerose', sans-serif;\r\n  }\r\n  \r\n  #menu-toggle i {\r\n    color: var(--white);\r\n    font-size: 1.8rem;\r\n    transition: all 0.3s ease;\r\n  }\r\n  \r\n  #menu-toggle:hover i {\r\n    color: var(--burgundy);\r\n  }\r\n  \r\n  @media (max-width: 768px) {\r\n    #menu-toggle {\r\n      display: block;\r\n    }\r\n    \r\n    #menu-toggle.active i {\r\n      color: var(--burgundy);\r\n    }\r\n  }"],"names":[],"mappings":"AAAA;;;;;;;AAOE;;;;;;;;;;AAUA;;;;;;AAMA;;;;AAIA;EACE;;;;EAIA"}}]
+}

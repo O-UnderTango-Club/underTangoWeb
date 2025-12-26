@@ -1,0 +1,196 @@
+/* [project]/app/styles/footer.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary: #350410;
+  --secondary: #d4af37;
+  --white: #fff;
+  --black: #000;
+  --burgundy: #8b0000;
+  --burgundy-dark: #5a0000;
+  --gray-light: #f5f5f5;
+  --gray-dark: #333;
+}
+
+footer {
+  background-color: var(--primary);
+  color: var(--white);
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer:before {
+  content: "";
+  background: linear-gradient(to right, var(--burgundy-dark), var(--burgundy), var(--burgundy-dark));
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.footer-content {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 5% 30px;
+  display: grid;
+}
+
+.footer-logo {
+  grid-column: 1 / -1;
+  justify-content: center;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.footer-logo img {
+  width: 180px;
+  height: auto;
+}
+
+.footer-section h3 {
+  color: var(--secondary);
+  margin-bottom: 20px;
+  font-family: Bellerose, sans-serif;
+  font-size: 1.3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-section h3:after {
+  content: "";
+  background-color: var(--secondary);
+  width: 40px;
+  height: 2px;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+}
+
+.footer-section p, .footer-section a {
+  color: var(--white);
+  margin-bottom: 10px;
+  font-family: Bellerose, sans-serif;
+  font-size: .95rem;
+  transition: color .3s;
+  display: block;
+}
+
+.footer-section a:hover {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.footer-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  gap: 15px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.social-icons a {
+  color: var(--white);
+  font-size: 1.5rem;
+  transition: all .3s;
+}
+
+.social-icons a:hover {
+  color: var(--secondary);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  background-color: #0000004d;
+  width: 100%;
+  margin: 0;
+  padding: 15px 5%;
+  font-size: .9rem;
+}
+
+.footer-bottom p {
+  color: var(--white);
+  margin: 0;
+  font-family: Bellerose, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    padding: 30px 5% 20px;
+  }
+
+  .footer-logo img {
+    width: 150px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-section p, .footer-section a {
+    font-size: .9rem;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    text-align: left;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 15px;
+  }
+
+  .footer-section h3:after {
+    left: 0;
+    transform: none;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+
+  .footer-logo img {
+    width: 120px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-section p, .footer-section a {
+    font-size: .85rem;
+  }
+
+  .footer-bottom {
+    padding: 12px 5%;
+    font-size: .8rem;
+  }
+}
+
+/*# sourceMappingURL=app_styles_footer_css_bad6b30c._.single.css.map*/

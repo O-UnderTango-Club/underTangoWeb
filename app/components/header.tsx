@@ -11,7 +11,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const { user, logout } = useAuth(); // 👈 ahora usamos tu contexto real
+  const { user, logout } = useAuth();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 

@@ -1,0 +1,804 @@
+/* [project]/app/styles/navbar.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary: #350410;
+  --secondary: #d4af37;
+  --white: #fff;
+  --black: #000;
+  --burgundy: #8b0000;
+  --burgundy-dark: #5a0000;
+  --font-size-body: 16px;
+}
+
+#navbar {
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  background-color: #00000080;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 15px 5%;
+  transition: all .3s;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#navbar.scrolled {
+  background-color: #000000e6;
+  padding: 10px 5%;
+  box-shadow: 0 4px 10px #0000004d;
+}
+
+.logo {
+  z-index: 1001;
+  max-width: 70%;
+}
+
+.logo img {
+  width: auto;
+  max-width: 100%;
+  height: 100px;
+  transition: height .3s;
+}
+
+#navbar.scrolled .logo img {
+  height: 80px;
+}
+
+#navbar-menu {
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+#navbar-menu li {
+  margin-left: 30px;
+  position: relative;
+}
+
+#navbar-menu li a {
+  color: var(--white);
+  font-family: Bellerose, sans-serif;
+  font-weight: bold;
+  font-size: var(--font-size-body);
+  padding: 5px 0;
+  text-decoration: none;
+  transition: all .3s;
+  display: inline-block;
+  position: relative;
+}
+
+#navbar-menu li a:after {
+  content: "";
+  background-color: var(--burgundy);
+  width: 0;
+  height: 2px;
+  transition: width .3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+
+#navbar-menu li a:hover {
+  color: var(--burgundy);
+}
+
+#navbar-menu li a:hover:after {
+  width: 100%;
+}
+
+#navbar-menu li a.active {
+  color: var(--burgundy);
+}
+
+#menu-toggle {
+  cursor: pointer;
+  z-index: 1002;
+  background: #35041080;
+  border: none;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 45px;
+  height: 45px;
+  padding: 8px;
+  transition: all .3s;
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+#menu-toggle:hover {
+  background-color: #350410cc;
+}
+
+#menu-toggle:before, #menu-toggle:after, #menu-toggle i {
+  content: "";
+  background-color: var(--white);
+  border-radius: 2px;
+  width: 25px;
+  height: 3px;
+  transition: all .3s;
+  display: block;
+}
+
+#menu-toggle i {
+  font-style: normal;
+}
+
+#menu-toggle.active:before {
+  transform: translateY(8px)rotate(45deg);
+}
+
+#menu-toggle.active i {
+  opacity: 0;
+}
+
+#menu-toggle.active:after {
+  transform: translateY(-8px)rotate(-45deg);
+}
+
+#menu-toggle.active {
+  background-color: #350410cc;
+}
+
+#menu-toggle:hover:before, #menu-toggle:hover:after, #menu-toggle:hover i {
+  background-color: var(--secondary);
+}
+
+.auth-buttons {
+  align-items: center;
+  gap: 1.5rem;
+  display: flex;
+}
+
+#navbar {
+  font-family: Cinzel, serif;
+}
+
+.auth-buttons a {
+  color: var(--white);
+  text-wrap: nowrap;
+  padding: 8px 16px;
+  font-family: Bellerose, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+@media screen and (max-width: 768px) {
+  .auth-buttons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .auth-buttons a {
+    text-align: center;
+    width: 80%;
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  #navbar-menu {
+    background-color: #0000 !important;
+    flex-direction: row !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    position: static !important;
+  }
+
+  #navbar-menu li {
+    margin-left: 30px !important;
+    display: list-item !important;
+  }
+
+  #menu-toggle {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #navbar {
+    padding: 10px 15px;
+  }
+
+  .logo img {
+    height: 70px;
+  }
+
+  #menu-toggle {
+    display: flex !important;
+  }
+
+  #navbar-menu {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 1001;
+    background-color: #000000f2;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100vh;
+    padding: 80px 0;
+    transition: right .3s;
+    position: fixed;
+    top: 0;
+    right: -100%;
+  }
+
+  #navbar-menu.active {
+    right: 0;
+  }
+
+  #navbar-menu li {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  #navbar-menu li a {
+    font-size: calc(var(--font-size-body) * 1.2);
+    padding: 10px 20px;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #navbar {
+    padding: 8px 10px;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  #navbar-menu {
+    width: 100%;
+  }
+
+  #navbar-menu li a {
+    font-size: var(--font-size-body);
+  }
+
+  #menu-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #navbar {
+    padding: 6px 8px;
+  }
+
+  .logo img {
+    height: 40px;
+  }
+
+  #menu-toggle {
+    width: 35px;
+    height: 35px;
+    font-size: 1.4rem;
+    right: 8px;
+  }
+}
+
+/* [project]/app/styles/footer.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary: #350410;
+  --secondary: #d4af37;
+  --white: #fff;
+  --black: #000;
+  --burgundy: #8b0000;
+  --burgundy-dark: #5a0000;
+  --gray-light: #f5f5f5;
+  --gray-dark: #333;
+}
+
+footer {
+  background-color: var(--primary);
+  color: var(--white);
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer:before {
+  content: "";
+  background: linear-gradient(to right, var(--burgundy-dark), var(--burgundy), var(--burgundy-dark));
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.footer-content {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 5% 30px;
+  display: grid;
+}
+
+.footer-logo {
+  grid-column: 1 / -1;
+  justify-content: center;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.footer-logo img {
+  width: 180px;
+  height: auto;
+}
+
+.footer-section h3 {
+  color: var(--secondary);
+  margin-bottom: 20px;
+  font-family: Bellerose, sans-serif;
+  font-size: 1.3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-section h3:after {
+  content: "";
+  background-color: var(--secondary);
+  width: 40px;
+  height: 2px;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+}
+
+.footer-section p, .footer-section a {
+  color: var(--white);
+  margin-bottom: 10px;
+  font-family: Bellerose, sans-serif;
+  font-size: .95rem;
+  transition: color .3s;
+  display: block;
+}
+
+.footer-section a:hover {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.footer-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  gap: 15px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.social-icons a {
+  color: var(--white);
+  font-size: 1.5rem;
+  transition: all .3s;
+}
+
+.social-icons a:hover {
+  color: var(--secondary);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  background-color: #0000004d;
+  width: 100%;
+  margin: 0;
+  padding: 15px 5%;
+  font-size: .9rem;
+}
+
+.footer-bottom p {
+  color: var(--white);
+  margin: 0;
+  font-family: Bellerose, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    padding: 30px 5% 20px;
+  }
+
+  .footer-logo img {
+    width: 150px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-section p, .footer-section a {
+    font-size: .9rem;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    text-align: left;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 15px;
+  }
+
+  .footer-section h3:after {
+    left: 0;
+    transform: none;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+
+  .footer-logo img {
+    width: 120px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-section p, .footer-section a {
+    font-size: .85rem;
+  }
+
+  .footer-bottom {
+    padding: 12px 5%;
+    font-size: .8rem;
+  }
+}
+
+/* [project]/app/styles/timeline.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.diagonal-section {
+  clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+  background: linear-gradient(-45deg, #0d152b, #1a1a1a, #080f1f, #100a27) 0 0 / 400% 400%;
+  padding: 100px 5%;
+  animation: 15s infinite gradientBG;
+}
+
+.timeline {
+  max-width: 1200px;
+  margin: 50px auto 0;
+  padding: 20px 0;
+  position: relative;
+}
+
+.timeline:after {
+  content: "";
+  background-color: var(--burgundy);
+  border-radius: 3px;
+  width: 6px;
+  margin-left: -3px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+}
+
+.timeline-item {
+  opacity: 0;
+  width: 50%;
+  padding: 10px 40px;
+  transition: all .8s;
+  position: relative;
+}
+
+.timeline-item:after {
+  content: "";
+  background-color: var(--black);
+  border: 4px solid var(--burgundy);
+  z-index: 1;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  transition: all .3s;
+  position: absolute;
+  top: 15px;
+}
+
+.timeline-item:hover:after {
+  background-color: var(--burgundy);
+  transform: scale(1.2);
+}
+
+.timeline-item:nth-child(2n) {
+  left: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(odd):after {
+  left: auto;
+  right: -17px;
+}
+
+.timeline-item:nth-child(2n):after {
+  left: -16px;
+}
+
+.timeline-content {
+  background-color: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 6px;
+  padding: 20px 30px;
+  transition: all .3s;
+  position: relative;
+  box-shadow: 0 4px 15px #0003;
+}
+
+.timeline-content:hover {
+  background-color: #ffffff1a;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px #0000004d;
+}
+
+.timeline-content h3 {
+  font-family: Bellerose, sans-serif;
+  font-size: var(--font-size-h3);
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  font-family: Bellerose, sans-serif;
+  font-size: var(--font-size-body);
+  color: var(--white);
+  line-height: 1.6;
+}
+
+.timeline-item.visible:nth-child(odd) {
+  animation: .8s ease-out forwards slideInLeft;
+}
+
+.timeline-item.visible:nth-child(2n) {
+  animation: .8s ease-out forwards slideInRight;
+}
+
+@media (max-width: 768px) {
+  .timeline:after {
+    left: 31px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  .timeline-item:after {
+    left: 15px !important;
+    right: auto !important;
+  }
+
+  .timeline-item:nth-child(2n) {
+    left: 0;
+  }
+
+  .timeline-item.visible:nth-child(2n) {
+    animation: .8s ease-out forwards slideInLeft;
+  }
+
+  .timeline-content h3 {
+    font-size: var(--font-size-h3);
+  }
+
+  .timeline-content p {
+    font-size: var(--font-size-body);
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-content h3 {
+    font-size: var(--font-size-h3);
+  }
+
+  .timeline-content {
+    padding: 15px 20px;
+  }
+
+  .timeline-item {
+    padding-left: 60px;
+  }
+
+  .timeline-item:after {
+    width: 20px;
+    height: 20px;
+    left: 12px !important;
+  }
+}
+
+/* [project]/app/styles/pilars.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#pillars {
+  background-color: var(--burgundy);
+  clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+  justify-content: space-around;
+  display: flex;
+}
+
+.pillar {
+  text-align: center;
+  padding: 1px;
+  transition: all .3s;
+}
+
+.pillar:hover {
+  transform: translateY(-10px);
+}
+
+.pillar h2 {
+  margin-bottom: 0;
+  font-family: Bellerose, sans-serif;
+  font-size: 2.5rem;
+}
+
+.content-wrapper {
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+}
+
+.content-wrapper.reverse {
+  flex-direction: row-reverse;
+}
+
+.text-content {
+  flex: 1;
+  padding: 0;
+}
+
+.text-content h2 {
+  color: var(--burgundy);
+  margin-bottom: 10px;
+  font-family: Bellerose, sans-serif;
+  font-size: 2.5rem;
+}
+
+.text-content p {
+  color: var(--white);
+  font-family: Bellerose, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.image-content {
+  text-align: center;
+  flex: 1;
+  padding: 0;
+}
+
+.image-content img {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px #0003;
+}
+
+@media (max-width: 768px) {
+  #pillars {
+    clip-path: none;
+    flex-direction: column;
+  }
+
+  .pillar {
+    padding: 20px 0;
+  }
+
+  .pillar h2 {
+    font-size: 2rem;
+  }
+}
+
+/* [project]/app/styles/burguer.css [app-client] (css) */
+@font-face {
+  font-family: Bellerose;
+  src: url("/assets/fonts/Bellerose.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#menu-toggle {
+  cursor: pointer;
+  z-index: 1001;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-family: Bellerose, sans-serif;
+  display: none;
+}
+
+#menu-toggle i {
+  color: var(--white);
+  font-size: 1.8rem;
+  transition: all .3s;
+}
+
+#menu-toggle:hover i {
+  color: var(--burgundy);
+}
+
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block;
+  }
+
+  #menu-toggle.active i {
+    color: var(--burgundy);
+  }
+}
+
+/*# sourceMappingURL=app_styles_9e4a0b4a._.css.map*/
