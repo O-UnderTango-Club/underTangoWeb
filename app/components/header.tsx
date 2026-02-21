@@ -87,16 +87,23 @@ export default function Header() {
           </>
         ) : (
           <>
-            <li style={{ marginRight: "10px" }}>
-              <Link href="/login" className={pathname === "/login" ? "active" : ""}>
-                Iniciar Sesión
-              </Link>
-            </li>
-            <li style={{ marginLeft: "10px" }}>
-              <Link href="/register" className={pathname === "/register" ? "active" : ""}>
-                Registrarse
-              </Link>
-            </li>
+<li style={{ marginRight: "10px" }}>
+  <a
+    href="https://sprightly-griffin-33f04f.netlify.app/login/login"
+    className="login-link"
+  >
+    Iniciar Sesión
+  </a>
+</li>
+
+<li style={{ marginLeft: "10px" }}>
+  <a
+    href="https://sprightly-griffin-33f04f.netlify.app/"
+    className="register-link"
+  >
+    Registrarse
+  </a>
+</li>
           </>
         )}
 
@@ -104,3 +111,4 @@ export default function Header() {
     </nav>
   );
 }
+
