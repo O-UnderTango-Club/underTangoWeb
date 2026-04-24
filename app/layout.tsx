@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Cinzel } from "next/font/google";
+import Script from "next/script";
 import "./styles/index.css";
 import { AuthProvider } from "./context/AuthContext";
 import PWAServiceWorker from "./Android-module/PWAServiceWorker";
-import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,13 +15,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "UnderTango Club | Milonga y Clases de Tango en Iguazú",
   description:
     "Descubre el auténtico tango en Iguazú con nuestras clases grupales y privadas, espectáculos de milonga y moda exclusiva. ¡Vive la pasión del tango en la triple frontera!",
   manifest: "/manifest.json",
   icons: {
-    icon: "../public/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 
@@ -46,7 +51,6 @@ export default function RootLayout({
         <AuthProvider>{children}</AuthProvider>
         <PWAServiceWorker />
 
-        {/* CHATBOT */}
         <Script
           src="//script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
           strategy="afterInteractive"
@@ -55,10 +59,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-import { Cinzel } from "next/font/google";
-
-export const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
