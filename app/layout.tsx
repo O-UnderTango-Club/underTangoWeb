@@ -47,9 +47,9 @@ export default function RootLayout({
         <AuthProvider>{children}</AuthProvider>
 
         <Script
-          src="//script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
-          strategy="afterInteractive"
-        />
+  src="https://script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
+  strategy="lazyOnload"
+/>
       </body>
     </html>
   );
