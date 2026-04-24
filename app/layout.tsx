@@ -46,10 +46,17 @@ export default function RootLayout({
       <body>
         <AuthProvider>{children}</AuthProvider>
 
-        <Script
-  src="https://script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
-  strategy="lazyOnload"
-/>
+        {/* CHATBOT */}
+        <Script id="chatbot-script" strategy="afterInteractive">
+          {`
+            (function() {
+              var s = document.createElement('script');
+              s.src = 'https://script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3';
+              s.async = true;
+              document.body.appendChild(s);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   );
