@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Cinzel } from "next/font/google";
 import Script from "next/script";
 import "./styles/index.css";
 import { AuthProvider } from "./context/AuthContext";
-import PWAServiceWorker from "./Android-module/PWAServiceWorker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,18 +37,14 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
       </head>
 
-      <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <AuthProvider>{children}</AuthProvider>
-        <PWAServiceWorker />
 
         <Script
           src="//script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
