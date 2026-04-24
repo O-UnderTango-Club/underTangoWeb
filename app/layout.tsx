@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/index.css";
 import { AuthProvider } from "./context/AuthContext";
 import PWAServiceWorker from "./Android-module/PWAServiceWorker";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,9 +20,9 @@ export const metadata: Metadata = {
   description:
     "Descubre el auténtico tango en Iguazú con nuestras clases grupales y privadas, espectáculos de milonga y moda exclusiva. ¡Vive la pasión del tango en la triple frontera!",
   manifest: "/manifest.json",
-  icons:{
-    icon: '../public/favicon.ico'
-  }
+  icons: {
+    icon: "../public/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -44,6 +45,12 @@ export default function RootLayout({
       >
         <AuthProvider>{children}</AuthProvider>
         <PWAServiceWorker />
+
+        {/* CHATBOT */}
+        <Script
+          src="//script2.chat-robot.com/?token=ed1139a97e102e18ec88a20b30f97aa3"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
@@ -55,4 +62,3 @@ export const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
-
