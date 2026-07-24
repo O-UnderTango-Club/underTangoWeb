@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import Script from 'next/script';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -18,22 +17,6 @@ export default function HomePage() {
 
   return (
     <>
-      <Head>
-        <title>UnderTango Club | Milonga y Clases de Tango en Iguazú</title>
-        <meta
-          name="description"
-          content="Descubre el auténtico tango en Iguazú con nuestras clases grupales y privadas, espectáculos de milonga y moda exclusiva. ¡Vive la pasión del tango en la triple frontera!"
-        />
-        <meta
-          name="facebook-domain-verification"
-          content="lx79g9tyq6nhj3ef5u8m8vpwp39r6h"
-        />
-        <link rel="icon" href="/assets/images/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        />
-      </Head>
 
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-MDX0M5KKDM" />
       <Script id="google-analytics">
@@ -86,7 +69,7 @@ export default function HomePage() {
             <div className="text-content">
               <h2>Shows de Tango en la Triple Frontera</h2>
               <p>Disfruta de espectáculos que te dejarán sin aliento en Puerto Iguazú.</p>
-              <a href="/pages/reservas.html" className="action-button">Reservar Ahora</a>
+              <a href="/reservas" className="action-button">Reservar Ahora</a>
             </div>
             <div className="image-content">
               <img src="/assets/images/showsImage1.png" alt="Espectáculos de Tango en Iguazú" />
@@ -101,8 +84,8 @@ export default function HomePage() {
               <h2>Clases de Tango en Iguazú</h2>
               <p>Aprende de los mejores maestros y vive la esencia del tango en la frontera con Brasil y Paraguay.</p>
               <div className="button-group">
-                <a href="/pages/clasesPrivadas.html" className="action-button">Clases Privadas</a>
-                <a href="/pages/clasesGrupales.html" className="action-button">Clases Grupales</a>
+                <a href="/clasesPrivadas" className="action-button">Clases Privadas</a>
+                <a href="/clasesGrupales" className="action-button">Clases Grupales</a>
               </div>
             </div>
             <div className="image-content">
@@ -117,7 +100,7 @@ export default function HomePage() {
               <h2>Moda de Tango en Misiones</h2>
               <p>Viste con elegancia y estilo para cada milonga y evento de tango en Iguazú.</p>
               <div className="button-group">
-                <a href="/pages/moda.html" className="catalog-button">Taller</a>
+                <a href="/moda" className="catalog-button">Taller</a>
                 <a href="/pages/otonio-invierno-2025.pdf" target="_blank" rel="noopener noreferrer" className="catalog-button">Ver Catálogo</a>
               </div>
             </div>
