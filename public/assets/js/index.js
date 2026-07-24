@@ -1,6 +1,9 @@
 // Animación de scroll para navbar
 function handleScroll() {
   const navbar = document.getElementById("navbar")
+
+  if (!navbar) return
+
   if (window.scrollY > 100) {
     navbar.classList.add("scrolled")
   } else {
@@ -51,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Colección de Moda Otoño/Invierno",
         content:
           "Descubre nuestra nueva colección de ropa y accesorios inspirados en el tango argentino. Elegancia y estilo para cada ocasión.",
-        link: "/public/pages/otonio-invierno-2025.pdf",
+        link: "/pages/otonio-invierno-2025.pdf",
       },
     ]
 
@@ -92,9 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Cerrar el menú móvil si está abierto
         const menu = document.getElementById("navbar-menu")
-        if (menu.classList.contains("active")) {
-          menu.classList.remove("active")
-          document.getElementById("menu-toggle").classList.remove("active")
+        const menuToggle = document.getElementById("menu-toggle")
+
+        if (menu?.classList.contains("active")) {
+        menu.classList.remove("active")
+        menuToggle?.classList.remove("active")
         }
       }
     })
