@@ -20,10 +20,36 @@ export const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "UnderTango Club | Milonga y Clases de Tango en Iguazú",
+  metadataBase: new URL("https://www.undertangoclub.com"),
+
+  title: "Ø UnderTango Club | Shows y Producción en Puerto Iguazú",
+
   description:
-    "Descubre el auténtico tango en Iguazú con nuestras clases grupales y privadas, espectáculos de milonga y moda exclusiva. ¡Vive la pasión del tango en la triple frontera!",
-  manifest: "/manifest.json",
+    "Productora artística de la Triple Frontera. Shows de tango, música en vivo, Ø Tango Rave y producciones a medida para hoteles, eventos y espacios culturales.",
+
+  applicationName: "Ø UnderTango Club",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    title: "Ø UnderTango Club | Shows y Producción en Puerto Iguazú",
+    description:
+      "Espectáculos, música en vivo y producción escénica para hoteles, eventos y espacios culturales de la Triple Frontera.",
+    url: "https://www.undertangoclub.com",
+    siteName: "Ø UnderTango Club",
+    locale: "es_AR",
+    type: "website",
+  },
+
+  verification: {
+    other: {
+      "facebook-domain-verification":
+        "lx79g9tyq6nhj3ef5u8m8vpwp39r6h",
+    },
+  },
+
   icons: {
     icon: "/favicon.ico",
   },
