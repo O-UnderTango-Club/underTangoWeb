@@ -79,9 +79,6 @@ export default function HomePage() {
             <source src="/assets/images/welcome.mp4" type="video/mp4" />
             Tu navegador no soporta videos HTML5.
           </video>
-          <div className="text-overlay">
-            <h1 id="slider-text">Vive la Pasión del Tango en Iguazú</h1>
-          </div>
         </header>
 
         <section id="shows" className="section-animate">
