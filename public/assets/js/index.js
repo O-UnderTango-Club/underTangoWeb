@@ -1,23 +1,3 @@
-// Texto cambiante en el slider
-const texts = ["Vive la Pasión del Tango", "Siente el Ritmo en tu Alma", "Baila con el Corazón"]
-let currentIndex = 0
-
-function changeText() {
-  const textElement = document.getElementById("slider-text")
-  if (textElement) {
-    textElement.style.opacity = "0"
-
-    setTimeout(() => {
-      textElement.textContent = texts[currentIndex]
-      textElement.style.opacity = "1"
-      currentIndex = (currentIndex + 1) % texts.length
-    }, 500)
-  }
-}
-
-// Cambiar texto cada 5 segundos
-setInterval(changeText, 5000)
-
 // Animación de scroll para navbar
 function handleScroll() {
   const navbar = document.getElementById("navbar")
