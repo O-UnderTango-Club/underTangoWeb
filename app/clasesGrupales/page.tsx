@@ -30,7 +30,7 @@ export default function ClasesGrupalesPage() {
             <h2>El Tango: Una Pasión que Une</h2>
             <p>
               El tango es más que un baile; es una expresión de emociones, una
-              conexión entre dos personas y una cultura que trasciende
+              conexión entre dos personas y una expresión artística que trasciende
               fronteras.
             </p>
           </div>
