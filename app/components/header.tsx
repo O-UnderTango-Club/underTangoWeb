@@ -53,9 +53,6 @@ export default function Header() {
           <Link href="/#historia">Historia</Link>
         </li>
         <li>
-          <Link href="/#news">Noticias</Link>
-        </li>
-        <li>
           <Link href="/reservas" className={pathname === "/reservas" ? "active" : ""}>
             Contacto
           </Link>
