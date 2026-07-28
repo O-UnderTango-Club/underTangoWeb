@@ -55,45 +55,6 @@ export function useHomeEffects() {
     sections.forEach((section) => observer.observe(section));
     timelineItems.forEach((item) => observer.observe(item));
 
-    const newsContainer = document.getElementById('news-container');
-    if (newsContainer && newsContainer.children.length === 0) {
-      const newsItems = [
-        {
-          title: 'Un poco de historia del tango',
-          content:
-            'El tango es uno de los géneros musicales más icónicos y emblemáticos de la cultura argentina, y su origen se remonta a la ciudad de Buenos Aires a fines del siglo XIX.',
-          link: 'https://argentina-tango.net/2023/03/05/un-poco-de-historia-del-tango/',
-        },
-        {
-          title: 'Clases Online Disponibles',
-          content:
-            'Ahora puedes aprender tango desde la comodidad de tu hogar con nuestras nuevas clases en línea. Perfectas para principiantes y bailarines experimentados.',
-          link: 'https://hotmart.com/es/marketplace/productos/20-lecciones-de-tango/F62016758K',
-        },
-        {
-          title: 'Colección de Moda Otoño/Invierno',
-          content:
-            'Descubre nuestra nueva colección de ropa y accesorios inspirados en el tango argentino. Elegancia y estilo para cada ocasión.',
-          // PDF en public/pages/ -> accesible via /pages/otonio-invierno-2025.pdf
-          link: '/pages/otonio-invierno-2025.pdf',
-        },
-      ];
-
-      newsItems.forEach((item) => {
-        const newsItem = document.createElement('a');
-        newsItem.classList.add('news-item');
-        newsItem.href = item.link;
-        newsItem.target = '_blank';
-        newsItem.rel = 'noopener noreferrer';
-        newsItem.innerHTML = `
-          <h3>${item.title}</h3>
-          <p>${item.content}</p>
-          <span class="read-more">Leer más →</span>
-        `;
-        newsContainer.appendChild(newsItem);
-      });
-    }
-
     document.querySelectorAll('#navbar a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', (e) => {
         e.preventDefault();
