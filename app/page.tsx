@@ -70,7 +70,7 @@ export default function HomePage() {
               <p className="commercial-eyebrow">
                 PRODUCTORA ARTÍSTICA · PUERTO IGUAZÚ · TRIPLE FRONTERA
               </p>
-              <h2>Producimos espectáculos para hoteles, eventos y espacios culturales</h2>
+              <h2>Producimos espectáculos para hoteles, gastronomía y eventos</h2>
               <p>
                 Tango, música en vivo y experiencias escénicas de la Triple Frontera,
                 diseñadas a medida para cada espacio, público y ocasión.
@@ -93,12 +93,12 @@ export default function HomePage() {
                 despliegue técnico a las necesidades de cada producción.
               </p>
               <a
-                href="https://wa.me/5493757618270?text=Hola%2C%20quisiera%20consultar%20la%20agenda%20de%20actividades%20abiertas%20al%20p%C3%BAblico%20en%20Puerto%20Iguaz%C3%BA."
+                href="https://wa.me/5493757618270?text=Hola%2C%20quisiera%20consultar%20el%20cronograma%20de%20actividades%20abiertas%20al%20p%C3%BAblico%20en%20Puerto%20Iguaz%C3%BA."
                 className="agenda-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ¿Buscás actividades abiertas al público? Consultar agenda cultural
+                ¿Buscás actividades abiertas al público? Consultar cronograma
               </a>
             </div>
             <div className="image-content">
@@ -147,7 +147,7 @@ export default function HomePage() {
           <div className="content-wrapper">
             <div className="text-content">
               <h2>Nuestra Pasión por el Tango en Iguazú</h2>
-              <p>En Undertango, vivimos y respiramos tango. Nuestra misión es compartir esta pasión con el mundo, creando experiencias únicas que trascienden el baile y conectan culturas en la triple frontera.</p>
+              <p>En UnderTango, vivimos y respiramos tango. Nuestra misión es compartir esta pasión con el mundo, creando experiencias únicas que trascienden el baile y conectan personas en la Triple Frontera.</p>
             </div>
             <div className="image-content">
               <img src="/assets/images/NuestraPasionIcon.png" alt="Pasión por el Tango en la Triple Frontera" />
@@ -163,12 +163,8 @@ export default function HomePage() {
             <div className="timeline-item"><div className="timeline-content"><h3>2017</h3><p>Expandimos nuestros servicios como productora artística.</p></div></div>
             <div className="timeline-item"><div className="timeline-content"><h3>2023</h3><p>Registro de la marca en el Instituto de la Propiedad Industrial (INPI).</p></div></div>
             <div className="timeline-item"><div className="timeline-content"><h3>2025</h3><p>Lanzamiento de Moda UnderTango para expandir nuestra pasión.</p></div></div>
+            <div className="timeline-item"><div className="timeline-content"><h3>2026</h3><p>Fundación de la startup tecnológica y la red social de UnderTango Club, aún en construcción.</p></div></div>
           </div>
-        </section>
-
-        <section id="news" className="section-animate">
-          <h2>Últimas Noticias</h2>
-          <div id="news-container" className="news-grid"></div>
         </section>
 
         <section id="map" className="section-animate">
