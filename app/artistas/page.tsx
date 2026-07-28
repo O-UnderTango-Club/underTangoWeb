@@ -36,11 +36,11 @@ export default function ArtistasPage() {
                 <div className="artist-description">
                   <strong>Trayectoria:</strong> Con más de 10 años en el mundo
                   del tango, Bianca es una artista multifacética, destacándose
-                  tanto en la danza como en la gestión cultural.
+                  tanto en la danza como en la gestión artística.
                 </div>
                 <div className="artist-services">
                   <strong>Servicios:</strong> Clases de tango, performances,
-                  dirección artística y organización de eventos culturales.
+                  dirección artística y organización de eventos corporativos y privados.
                 </div>
                 <Link
                   href="https://www.linkedin.com/in/bianca-wagner-/"
@@ -64,7 +64,7 @@ export default function ArtistasPage() {
                 </div>
                 <div className="artist-services">
                   <strong>Servicios:</strong> Clases de tango, producción de
-                  espectáculos, desarrollo de proyectos culturales, y consultoría
+                  espectáculos, desarrollo de proyectos artísticos y consultoría
                   artística.
                 </div>
                 <Link
