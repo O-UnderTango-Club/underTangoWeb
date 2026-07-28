@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Ø UnderTango Club | Shows y Producción en Puerto Iguazú",
 
   description:
-    "Productora artística de la Triple Frontera. Shows de tango, música en vivo, Ø Tango Rave y producciones a medida para hoteles, eventos y espacios culturales.",
+    "Productora artística de la Triple Frontera. Shows de tango, música en vivo, Ø Tango Rave y producciones a medida para hoteles, gastronomía y eventos.",
 
   applicationName: "Ø UnderTango Club",
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ø UnderTango Club | Shows y Producción en Puerto Iguazú",
     description:
-      "Espectáculos, música en vivo y producción escénica para hoteles, eventos y espacios culturales de la Triple Frontera.",
+      "Espectáculos, música en vivo y producción escénica para hoteles, gastronomía y eventos de la Triple Frontera.",
     url: "https://www.undertangoclub.com",
     siteName: "Ø UnderTango Club",
     locale: "es_AR",
