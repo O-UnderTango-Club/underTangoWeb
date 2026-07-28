@@ -64,15 +64,48 @@ export default function HomePage() {
           </video>
         </header>
 
-        <section id="shows" className="section-animate">
+        <section id="shows" className="section-animate commercial-intro">
           <div className="content-wrapper">
             <div className="text-content">
-              <h2>Shows de Tango en la Triple Frontera</h2>
-              <p>Disfruta de espectáculos que te dejarán sin aliento en Puerto Iguazú.</p>
-              <a href="/reservas" className="action-button">Reservar Ahora</a>
+              <p className="commercial-eyebrow">
+                PRODUCTORA ARTÍSTICA · PUERTO IGUAZÚ · TRIPLE FRONTERA
+              </p>
+              <h2>Producimos espectáculos para hoteles, eventos y espacios culturales</h2>
+              <p>
+                Tango, música en vivo y experiencias escénicas de la Triple Frontera,
+                diseñadas a medida para cada espacio, público y ocasión.
+              </p>
+              <div className="button-group">
+                <a
+                  href="https://wa.me/5493757618270?text=Hola%2C%20quisiera%20consultar%20por%20una%20producci%C3%B3n%20art%C3%ADstica%20para%20mi%20establecimiento%20o%20evento."
+                  className="action-button"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Solicitar una propuesta
+                </a>
+                <a href="/reservas#shows" className="catalog-button secondary-button">
+                  Conocer los espectáculos
+                </a>
+              </div>
+              <p className="commercial-note">
+                Trabajamos por contratación y adaptamos artistas, duración, sonido y
+                despliegue técnico a las necesidades de cada producción.
+              </p>
+              <a
+                href="https://wa.me/5493757618270?text=Hola%2C%20quisiera%20consultar%20la%20agenda%20de%20actividades%20abiertas%20al%20p%C3%BAblico%20en%20Puerto%20Iguaz%C3%BA."
+                className="agenda-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ¿Buscás actividades abiertas al público? Consultar agenda cultural
+              </a>
             </div>
             <div className="image-content">
-              <img src="/assets/images/showsImage1.png" alt="Espectáculos de Tango en Iguazú" />
+              <img
+                src="/assets/images/showsImage1.png"
+                alt="Producción artística de UnderTango Club en Puerto Iguazú"
+              />
             </div>
           </div>
         </section>
