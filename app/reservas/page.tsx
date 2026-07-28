@@ -88,7 +88,7 @@ export default function ReservasPage() {
               <div className="highlight-card">
                 <i className="fas fa-globe-americas"></i>
                 <h3>Show Triplefrontera</h3>
-                <p>Una fusión de culturas.</p>
+                <p>Una fusión de identidades y ritmos.</p>
               </div>
             </div>
           </div>
